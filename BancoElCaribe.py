@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Punto 7:
 
 #Uso el diccionario:
@@ -47,9 +46,3 @@ while True:
     else:
         print("\nRespuesta inválida. Por favor responda ´si´ o ´no´.")
         continue
-=======
-print("Hola xd")
-print("Mañana no hay clases xdxd")
-print("No se que hacer mañana en tutoría xd")
-print("holis")
->>>>>>> 2dfaaba1cb3ee3c12333ca81628d590ba6a7b694
