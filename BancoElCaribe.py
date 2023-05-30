@@ -1,35 +1,44 @@
-print("""
+print("""\n
          *****************************************************************
          *      BIENVENIDOS AL PROGRAMA DE EL BANCO EL CARIBE            *
          *****************************************************************""")
 
 print("\nA CONTINUACIÓN SE TE PRESENTA EL MENÚ DE OPCIONES DE NUESTRO PROGRAMA: ")
 
-respuesta = int(input("\n 1. Agregar cliente. \n 2. Modificar cliente. \n 3. Agregar transacción. \n 4. Eliminar cliente. \n 5. Mostrar lista de clientes con depósitos. \n 6. Mostrar lista de clientes con retiros. \n 7. Mostrar lista con clientes ordenada por Número de cuenta. \n 8. Salir del programa. \n Agrega la opción del menú: "))
+print("\n1. Agregar cliente.")
+print("2. Modificar cliente.")
+print("3. Agregar transacción.")
+print("4. Eliminar cliente.")
+print("5. Mostrar lista de clientes con depósitos.")
+print("6. Mostrar lista de clientes con retiros.")
+print("7. Mostrar lista con clientes ordenada por Número de cuenta.")
+print("8. Salir del programa.")
 
-while i:
-    if respuesta == "1":
+respuesta = int(input("Ingrese la opción del menú deseada: "))
+
+while True:
+    if respuesta == 1:
         print("D")
-    elif respuesta == "2":
+    elif respuesta == 2:
         print("D")
-    elif respuesta == "3":
+    elif respuesta == 3:
         print("C")
-    elif respuesta == "4":
+    elif respuesta == 4:
         print("C")
-    elif respuesta == "5":
+    elif respuesta == 5:
         print("G")
-    elif respuesta == "6":
+    elif respuesta == 6:
         print("G")
-    elif respuesta == "7":
+    elif respuesta == 7:
         print("V")
-    elif respuesta == "8":
+    elif respuesta == 8:
         print("""\n
                   **************************************
                   *        EL BANCO EL CARIBE          *
                   **************************************""")
         print("""\n
                 ********************************************
-                *    HA FINALIZADO EL PROGRAMA             *
+                *        HA FINALIZADO EL PROGRAMA         *
                 ********************************************""")
         break
     else:
