@@ -44,5 +44,5 @@ while True:
     elif salir.lower() == "no":
         continue
     else:
-        print("\nRespuesta inválida. Por favor responda ´si´ o ´no´.")
+        print("\nRespuesta inválida. Por favor responda `si` o `no`.")
         continue
