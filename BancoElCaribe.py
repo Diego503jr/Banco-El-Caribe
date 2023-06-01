@@ -1,16 +1,25 @@
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
 clientes = {
-    "codigoClientes" : [],
-    "nombreClientes" : [],
-    "numeroCuenta" : [],
-    "retiros" : [],
-    "depositos" : [],
-    "fecha" : [],
-    "total" : []
+    "codigoClientes" : [12345],
+    "nombreClientes" : ["Diego"],
+    "numeroCuenta" : [123567],
+    "retiros" : [100],
+    "depositos" : [100],
+    "fechaRe" : ["12/21/31"],
+    "fechaDe" : ["12/21/31"],
+    "total" : [200]
 }
 totDep = 0
 totRet = 0
-cantClientes = 0
+cantClientes = 1
+
+def manejoErrorOpcion(msj):
+    while True:
+        try:
+            value = int(input(msj))
+            return value
+        except ValueError:
+            print("Error! Digite valores numericos")
 
 print("""\n
          *****************************************************************
@@ -65,7 +74,7 @@ while True:
 
                             print("\n - DEPOSITO - ")
                             valorDeposito = manejoErrorOpcion("Ingrese la cifra a depositar: $ ")
-                            clientes["depositos"].append(cantidadDepositar)
+                            clientes["depositos"].append(valorDeposito)
                             totDep += valorDeposito
                             fechaDeposito = manejoErrorOpcion("Digite la fecha de este depósito: ")
                             clientes["depositos"].append(valorDeposito)
@@ -146,44 +155,33 @@ while True:
                     print("Codigo Cliente: \t", clientes["codigoClientes"][i])
                     print("Nombre Cliente: \t", clientes["nombreClientes"][i])
                     print("Cuenta N°: \t\t", clientes["numeroCuenta"][i])
-                    print()
-                    while True: #Este while true esta simplemente por si selecciona una opción que no es lo regrese
-                        tipoTransaccion = int(input("\n1. Depósito\n2. Retiro\nQué tipo de transacción hará: "))
-                        if tipoTransaccion == 1:
-                            valorDeposito = float(input("Digite la cantidad a depositar: $"))
-                            totDep += valorDeposito #este sera el total total de todos los depositos
-                            fecha = input("Digite la fecha de este depósito: ")
-                            clientes["depositos"].append(valorDeposito)
-                            clientes["fecha"].append(fecha) #la fecha realmente no supe como ocuparla xd
-                            salirMenu = input("\n¿Desea realizar más transacciones?")
-                            if salirMenu == "no": #si le da que no, lo regresa al menú
-                                break
-                        elif tipoTransaccion == 2:
-                            valorRetiro = float(input("Digite la cantidad a retirar: $"))
-                            totRet += valorRetiro #Este sera el total total de todos los retiros
-                            fecha = input("Digite la fecha de este retiro: ")
-                            clientes["retiros"].append(valorRetiro)
-                            clientes["fecha"].append(fecha) #pero ya está creada xdxd
-                            salirMenu = input("\n¿Desea realizar más transacciones?")
-                            if salirMenu == "no": #si le da que no, lo regresa al menú
-                                break
+                    #Aqui aun no se elimina solo esta como demostracion
+                    if clientes["codigoClientes"][i] == codigo:
+                        confirmation = input("\n¿Deseas eliminar el cliente? (si/no): ")
+                        if confirmation.lower() == "si":
+                            clientes["codigoClientes"].remove(codigoClientes)
+                            clientes["nombreClientes"].remove(nombreClientes)
+                            clientes["numeroCuenta"].remove(numeroCuenta)
+                            break
+                        elif confirmation.lower() == "no":
+                            print("\nNo se elimino ningun cliente")
+                            break
                         else:
-                            print("\nOpción inválida")
-                        break
-                else:
-                    print("Cliente no encontrado.")
-        #saldoF = totDep - totRet (#Este será el total total de todos los movimientos del banco pero me falló xd)        
-    
-    elif respuesta == 4:
-        print("Esto solo es una prueba") #Esto es para probar la impresión de datos, no es el punto 3 xdxd
-    
+                            print("\nHa ingresado una opción incorrecta. Por favor ingresa una opción del submenú.")
+                    else:
+                        print("\n   --- Cliente No Encontrado! ---")
+            elif respuesta == 2:
+                break
+            else:
+                print("\nHa ingresado una opción incorrecta. Por favor ingresa una opción del submenú.")
+
     elif respuesta == 5:
-            print("Lista de clientes con sus respectivos depositos:")
-            print("\n Cliente", i+1, "\n")
-            print("Codigo del cliente: ", clientes["codigoClientes"][i])
-            print("Nombre del cliente: ", clientes["nombreClientes"][i])
-            print("Número de cuenta:", clientes["numeroCuenta"][i])
-            print("Depositos: $ ", clientes["depositos"][i])
+        print("Lista de clientes con sus respectivos depositos:")
+        print("\n Cliente", i+1, "\n")
+        print("Codigo del cliente: ", clientes["codigoClientes"][i])
+        print("Nombre del cliente: ", clientes["nombreClientes"][i])
+        print("Número de cuenta:", clientes["numeroCuenta"][i])
+        print("Depositos: $ ", clientes["depositos"][i])
     elif respuesta == 6:
         print("Lista de clientes con sus respectivos rertiros:")
         for i in range (cantClientes):
