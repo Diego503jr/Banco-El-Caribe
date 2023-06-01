@@ -89,7 +89,7 @@ while True:
     elif respuesta == 4:
         print("Esto solo es una prueba")
 
-    elif respuesta == 5:
+    elif respuesta == 5: #lista de clientes y sus depositos
         print("Lista de clientes con sus respectivos depositos:")
         for i in range (cantClientes):
             print("\n Cliente N", i+1, "\n")
