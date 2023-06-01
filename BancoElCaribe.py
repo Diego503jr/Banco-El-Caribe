@@ -176,17 +176,7 @@ while True:
     
     elif respuesta == 4:
         print("Esto solo es una prueba") #Esto es para probar la impresión de datos, no es el punto 3 xdxd
-        for i in range(cantClientes):
-            print("Código Cliente", clientes["codigoClientes"][i])
-            print("Nombre Cliente", clientes["nombreClientes"][i])
-            print("N° de Cuenta", clientes["numeroCuenta"][i])
-            print("Total depositos", clientes["depositos"][i])
-            print("Total retiros", clientes["retiros"][i])
-            print("Fechas", clientes["fecha"][i],"\n")
-        print("Total: $", totDep)
-        print("Total: ", totRet)
-        #print("Saldo Final", saldoF) auuí mero me fallo :c
-
+    
     elif respuesta == 5:
         print("G")
     elif respuesta == 6:
