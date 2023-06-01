@@ -4,12 +4,13 @@ clientes = {
     "numeroCuenta" : [],
     "retiros" : [],
     "depositos" : [],
-    "fecha" : [],
+    "horayfecha" : [],
     "total" : []
 }
 totDep = 0
 totRet = 0
 cantClientes = 0
+import datetime
 
 print("""\n
          *****************************************************************
@@ -61,18 +62,20 @@ while True:
                         if tipoTransaccion == 1:
                             valorDeposito = float(input("Digite la cantidad a depositar: $"))
                             totDep += valorDeposito #este sera el total total de todos los depositos
-                            fecha = input("Digite la fecha de este depósito: ")
+                            horayfecha= datetime.datetime.now()
+                            print("Fecha y hora del deposito realizado: ", horayfecha.strftime('%d/%m/%y - %H:%M:%S'))#Agregando hora y fecha 
                             clientes["depositos"].append(valorDeposito)
-                            clientes["fecha"].append(fecha) #la fecha realmente no supe como ocuparla xd
+                            clientes["horayfecha"].append(horayfecha)
                             salirMenu = input("\n¿Desea realizar más transacciones?")
                             if salirMenu == "no": #si le da que no, lo regresa al menú
                                 break
                         elif tipoTransaccion == 2:
                             valorRetiro = float(input("Digite la cantidad a retirar: $"))
                             totRet += valorRetiro #Este sera el total total de todos los retiros
-                            fecha = input("Digite la fecha de este retiro: ")
+                            horayfecha= datetime.datetime.now()
+                            print("Fecha y hora del retiro realizado: ", horayfecha.strftime('%d/%m/%y - %H:%M:%S'))#Agregando hora y fecha 
                             clientes["retiros"].append(valorRetiro)
-                            clientes["fecha"].append(fecha) #pero ya está creada xdxd
+                            clientes["horayfecha"].append(horayfecha)
                             salirMenu = input("\n¿Desea realizar más transacciones?")
                             if salirMenu == "no": #si le da que no, lo regresa al menú
                                 break
@@ -84,22 +87,24 @@ while True:
         #saldoF = totDep - totRet (#Este será el total total de todos los movimientos del banco pero me falló xd)        
     
     elif respuesta == 4:
-        print("Esto solo es una prueba") #Esto es para probar la impresión de datos, no es el punto 3 xdxd
-        for i in range(cantClientes):
-            print("Código Cliente", clientes["codigoClientes"][i])
-            print("Nombre Cliente", clientes["nombreClientes"][i])
-            print("N° de Cuenta", clientes["numeroCuenta"][i])
-            print("Total depositos", clientes["depositos"][i])
-            print("Total retiros", clientes["retiros"][i])
-            print("Fechas", clientes["fecha"][i],"\n")
-        print("Total: $", totDep)
-        print("Total: ", totRet)
-        #print("Saldo Final", saldoF) auuí mero me fallo :c
+        print("Esto solo es una prueba")
 
     elif respuesta == 5:
-        print("G")
+        print("Lista de clientes con sus respectivos depositos:")
+        for i in range (cantClientes):
+            print("\n Cliente N", i+1, "\n")
+            print("Codigo del cliente: ", clientes["codigoClientes"][i])
+            print("Nombre del cliente: ", clientes["nombreClientes"][i])
+            print("Número de cuenta:", clientes ["numeroCuenta"][i])
+            print("Depositos: $ ", clientes["depositos"][i])
     elif respuesta == 6:
-        print("G")
+        print("Lista de clientes con sus respectivos rertiros:")
+        for i in range (cantClientes):
+            print("\n Cliente", i+1, "\n")
+            print("Codigo del cliente: ", clientes["codigoClientes"][i])
+            print("Nombre del cliente: ", clientes["nombreClientes"][i])
+            print("Número de cuenta:", clientes["numeroCuenta"][i])
+            print("Retiros: $ ", clientes["retiros"][i])
     elif respuesta == 7:
         print("V")
     elif respuesta == 8:
