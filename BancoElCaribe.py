@@ -178,7 +178,11 @@ while True:
         print("Esto solo es una prueba") #Esto es para probar la impresión de datos, no es el punto 3 xdxd
     
     elif respuesta == 5:
-        print("G")
+            print("\n Cliente", i+1, "\n")
+            print("Codigo del cliente: ", clientes["codigoClientes"][i])
+            print("Nombre del cliente: ", clientes["nombreClientes"][i])
+            print("Número de cuenta:", clientes["numeroCuenta"][i])
+            print("Retiros: $ ", clientes["retiros"][i])
     elif respuesta == 6:
         print("Lista de clientes con sus respectivos rertiros:")
         for i in range (cantClientes):
