@@ -205,13 +205,25 @@ while True:
     elif respuesta == 8:
         print("""\n
                   **************************************
-                  *         EL BANCO EL CARIBE         *
+                  *        EL BANCO EL CARIBE          *
                   **************************************""")
-        print("""\n
+        while True:
+            try:
+                respuesta = input("\n¿Desea salir del programa? si/no: ")
+                if not respuesta.lower()in ["si", "no"]:
+                    raise ValueError ("\nPor favor, ingrese ´si´ o ´no´.")
+                print("""\n
                 ********************************************
-                *         HA FINALIZADO EL PROGRAMA        *
+                *        HA FINALIZADO EL PROGRAMA         *
                 ********************************************""")
-        break
-    else:
-        print("Ha ingresado una opción incorrecta. Por favor ingresa una opción del menú.")
-        continue 
+                break
+            except ValueError as e:
+                print(e)
+                if respuesta.lower()=="si":
+                    print("""\n
+                ********************************************
+                *        HA FINALIZADO EL PROGRAMA         *
+                ********************************************""")
+
+
+        
