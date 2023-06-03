@@ -1,5 +1,4 @@
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
-listaClientes = []
 clientes = {
     "codigoClientes" : [1001,1002,1003,1004],
     "nombreClientes" : ["Diego","Gabriela","Carlos","Vladimir"],
@@ -20,7 +19,7 @@ def manejoErrorOpcion(msj):
             value = int(input(msj))
             return value
         except ValueError:
-            print("Error! Digite valores numericos")
+            print("\n   --- Error! Digite valores numericos ---")
 
 print("""\n
          *****************************************************************
@@ -38,7 +37,7 @@ while True:
     print("6. Mostrar lista de clientes con retiros.")
     print("7. Mostrar lista con clientes ordenada por Número de cuenta.")
     print("8. Salir del programa.")
-    respuesta = int(input("Ingrese la opción del menú deseada: "))
+    respuesta = manejoErrorOpcion("Ingrese la opción del menú deseada: ")
 
     if respuesta == 1:
         while True:
@@ -98,14 +97,6 @@ while True:
             saldoF = totDep - totRet
             break
 
-            # respuesta = input("\n¿Desea continuar? (si/no):\nEscriba su respuesta: ")
-            # if respuesta.lower() == "si":
-            #     continue
-            # elif respuesta.lower() == "no":
-            #     break
-            # else:
-            #     print("Seleccione una opción")
-
     elif respuesta == 3: #En este si el cliente no tiene retiros o depositos, en esa parte da error :c
         cant=int(input("¿Cuántos clientes desea modificar?")) #ver la cantidad de clientes a modificar 
         for i in range (cant):
@@ -135,7 +126,7 @@ while True:
         print("\n --- ELIMINAR CLIENTE --- ")
         #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
         while True:
-            codigo = int(input("\nDigite el código de cliente: "))
+            codigo = manejoErrorOpcion("\nDigite el código de cliente: ")
             encontrado = False
             for i in range(cantClientes):
                 #Aqui aun no se elimina solo esta como demostracion esta complejo el bolado xd
@@ -165,7 +156,6 @@ while True:
                 continue
             break
 
-
     elif respuesta == 5:
         print("Lista de clientes con sus respectivos depositos:")
         for i in range(cantClientes):
@@ -192,13 +182,23 @@ while True:
     elif respuesta == 8:
         print("""\n
                   **************************************
-                  *         EL BANCO EL CARIBE         *
+                  *        EL BANCO EL CARIBE          *
                   **************************************""")
-        print("""\n
+                  #Mejora esto xd
+        while True:
+            try:
+                respuesta = input("\n¿Desea salir del programa? si/no: ")
+                if respuesta.lower()in ["si", "no"]:
+                    raise ValueError ("\nPor favor, ingrese ´si´ o ´no´.")
+                print("""\n
                 ********************************************
-                *         HA FINALIZADO EL PROGRAMA        *
+                *        HA FINALIZADO EL PROGRAMA         *
                 ********************************************""")
-        break
-    else:
-        print("Ha ingresado una opción incorrecta. Por favor ingresa una opción del menú.")
-        continue 
+                break
+            except ValueError as e:
+                print(e)
+                if respuesta.lower()=="si":
+                    print("""\n
+                ********************************************
+                *        HA FINALIZADO EL PROGRAMA         *
+                ********************************************""")
