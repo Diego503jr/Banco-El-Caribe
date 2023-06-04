@@ -181,8 +181,8 @@ while True:
 # Ordenar la lista de clientes por número de cuenta:
         print("\n --- Lista de Clientes ordenadas según número de cuenta --- ")
         for i in range(cantClientes):
-            print("\n Cliente N° ", i+1, "\n")
-            print("\n Número de cuenta: ",clientes["numeroCuenta"][i])
+            print("\nCliente N° ", i+1, "\n")
+            print("Número de cuenta: ",clientes["numeroCuenta"][i])
             print("Nombre Cliente: ", clientes["nombreClientes"][i])
             print("Código: ", clientes["codigoClientes"][i])
             print("Déposito: $ ", clientes["depositos"][i])
@@ -201,5 +201,5 @@ while True:
                 *******************************************************""")
         break
     else:
-        print("Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
+        print("\n Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
         continue
