@@ -1,8 +1,8 @@
 import time
-        print(" CALCULANDO", end= " ")
-        for t in range(1):
-            print("...", end= " ")
-            time.sleep(4)
+print(" CALCULANDO", end= " ")
+ for t in range(1):
+      print("...", end= " ")
+      time.sleep(4)
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
 clientes = {
     "codigoClientes" : [1001,1002,1003,1004],
@@ -178,17 +178,19 @@ while True:
             print("Número de cuenta:", clientes["numeroCuenta"][i])
             print("Retiros: $ ", clientes["retiros"][i])
     elif respuesta == 7:
-# Ordenar la lista de clientes por número de cuenta:
-        print("\n --- Lista de Clientes ordenadas según número de cuenta --- ")
-        for i in range(cantClientes):
-            print("\nCliente N° ", i+1, "\n")
-            print("Número de cuenta: ",clientes["numeroCuenta"][i])
-            print("Nombre Cliente: ", clientes["nombreClientes"][i])
-            print("Código: ", clientes["codigoClientes"][i])
-            print("Déposito: $ ", clientes["depositos"][i])
-            print("Retiro: $ ", clientes["retiros"][i])
-            print("Fecha de Retiro: ", clientes["fechaRe"][i])
-            print("Fecha de Depósito: ", clientes["fechaDe"][i])
+         print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
+        # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
+        cuentas_indices = list(zip(clientes["numeroCuenta"], range(cantClientes)))
+        cuentas_indices = sorted(cuentas_indices)
+        for cuenta, indice in cuentas_indices:
+            print("\n Cliente N°", indice + 1, "\n")
+            print("Número de cuenta:", clientes["numeroCuenta"][indice])
+            print("Nombre del cliente:", clientes["nombreClientes"][indice])
+            print("Código del cliente:", clientes["codigoClientes"][indice])
+            print("Depósitos: $", clientes["depositos"][indice])
+            print("Retiros: $", clientes["retiros"][indice])
+            print("Fecha de Retiro:", clientes["fechaRe"][indice])
+            print("Fecha de Depósito:", clientes["fechaDe"][indice])
             print("------------------------------------------------")
     elif respuesta == 8:
         print("""\n
