@@ -1,3 +1,8 @@
+import time
+        print(" CALCULANDO", end= " ")
+        for t in range(1):
+            print("...", end= " ")
+            time.sleep(4)
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
 clientes = {
     "codigoClientes" : [1001,1002,1003,1004],
