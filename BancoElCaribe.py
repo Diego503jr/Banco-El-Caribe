@@ -173,32 +173,28 @@ while True:
             print("Número de cuenta:", clientes["numeroCuenta"][i])
             print("Retiros: $ ", clientes["retiros"][i])
     elif respuesta == 7:
-        print("Lista de clientes con sus respectivos números de cuenta:") #se da una lista ordenada de clientes y numeros de cuenta 
+# Ordenar la lista de clientes por número de cuenta:
+        print("\n --- Lista de Clientes ordenadas según número de cuenta --- ")
         for i in range(cantClientes):
-            print("Número de cuenta:",clientes["numeroCuenta"][i])
-            print()
-            print("Nombre del cliente:",clientes["nombreClientes"][i])
-            print()
+            print("\n Cliente N° ", i+1, "\n")
+            print("\n Número de cuenta: ",clientes["numeroCuenta"][i])
+            print("Nombre Cliente: ", clientes["nombreClientes"][i])
+            print("Código: ", clientes["codigoClientes"][i])
+            print("Déposito: $ ", clientes["depositos"][i])
+            print("Retiro: $ ", clientes["retiros"][i])
+            print("Fecha de Retiro: ", clientes["fechaRe"][i])
+            print("Fecha de Depósito: ", clientes["fechaDe"][i])
+            print("------------------------------------------------")
     elif respuesta == 8:
         print("""\n
-                  **************************************
-                  *        EL BANCO EL CARIBE          *
-                  **************************************""")
-                  #Mejora esto xd
-        while True:
-            try:
-                respuesta = input("\n¿Desea salir del programa? si/no: ")
-                if respuesta.lower()in ["si", "no"]:
-                    raise ValueError ("\nPor favor, ingrese ´si´ o ´no´.")
-                print("""\n
-                ********************************************
-                *        HA FINALIZADO EL PROGRAMA         *
-                ********************************************""")
-                break
-            except ValueError as e:
-                print(e)
-                if respuesta.lower()=="si":
-                    print("""\n
-                ********************************************
-                *        HA FINALIZADO EL PROGRAMA         *
-                ********************************************""")
+                ***********************************************
+                *          HA FINALIZADO EL PROGRAMA          *
+                ***********************************************""")
+        print("""\n
+                *******************************************************
+                *       GRACIAS POR UTILIZAR NUESTRO PROGRAMA         *
+                *******************************************************""")
+        break
+    else:
+        print("Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
+        continue
