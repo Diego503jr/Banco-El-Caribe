@@ -1,8 +1,4 @@
 import time
-print(" CALCULANDO", end= " ")
-for t in range(5):
-      print(" . ", end= " ")
-      time.sleep(3)
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
 clientes = {
     "codigoClientes" : [1001,1002,1003,1004],
@@ -185,7 +181,7 @@ while True:
                 print("\t\t$:",retiro)
                 print("-----------------------------")
     elif respuesta == 7:
-         print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
+        print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
         # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
         cuentas_indices = list(zip(clientes["numeroCuenta"], range(cantClientes)))
         cuentas_indices = sorted(cuentas_indices)
