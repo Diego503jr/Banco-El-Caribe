@@ -1,6 +1,6 @@
 import time
 print(" CALCULANDO", end= " ")
- for t in range(5):
+for t in range(5):
       print(" . ", end= " ")
       time.sleep(3)
 #Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
