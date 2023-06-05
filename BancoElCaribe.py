@@ -161,22 +161,29 @@ while True:
                 continue
             break
 
-    elif respuesta == 5:
-        print("Lista de clientes con sus respectivos depositos:")
-        for i in range(cantClientes):
-            print("\n Cliente", i+1, "\n")
-            print("Codigo del cliente: ", clientes["codigoClientes"][i])
-            print("Nombre del cliente: ", clientes["nombreClientes"][i])
-            print("Número de cuenta:", clientes["numeroCuenta"][i])
-            print("Depositos: $ ", clientes["depositos"][i])
-    elif respuesta == 6:
-        print("Lista de clientes con sus respectivos rertiros:")
+    elif respuesta == 5: #ya muestra todos los depositos pero falta corregir 
+        print("\n --- Lista de clientes con sus respectivos depositos --- ") 
         for i in range (cantClientes):
-            print("\n Cliente", i+1, "\n")
-            print("Codigo del cliente: ", clientes["codigoClientes"][i])
-            print("Nombre del cliente: ", clientes["nombreClientes"][i])
-            print("Número de cuenta:", clientes["numeroCuenta"][i])
-            print("Retiros: $ ", clientes["retiros"][i])
+            print("-----------------------------")
+            print("\tCliente", i+1)
+            print("\tCódigo:", clientes["codigoClientes"][i])
+            print("\tNombre:", clientes["nombreClientes"][i])
+            print("\tDepósitos:")
+            for deposito in clientes["depositos"]:
+                print("\t\t$:",deposito)
+                print("-----------------------------")
+            
+    elif respuesta == 6: #ya muestra todos los retiros pero falta corregir
+        print("\n --- Lista de clientes con sus respectivos retiros --- ") 
+        for i in range (cantClientes):
+            print("-----------------------------")
+            print("\tCliente", i+1)
+            print("\tCódigo:", clientes["codigoClientes"][i])
+            print("\tNombre:", clientes["nombreClientes"][i])
+            print("\tDepósitos:")
+            for retiro in clientes["retiros"]:
+                print("\t\t$:",retiro)
+                print("-----------------------------")
     elif respuesta == 7:
          print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
         # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
