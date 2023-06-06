@@ -137,20 +137,20 @@ while True:
         for i in range (cant):
             while True:
                 codigo=int(input("Ingrese el código del cliente a modificar: "))
-                if codigo in clientes["codigoClientes"]: #si el codigo ingresado existe en el diccionario clientes proecede a buscarlo por su indice 
-                    index = clientes["codigoClientes"].index(codigo)
+                if codigo in cliente["codigoClientes"]: #si el codigo ingresado existe en el diccionario clientes proecede a buscarlo por su indice 
+                    index = cliente["codigoClientes"].index(codigo)
                     print("Cliente encontrado!")
-                    print("Código del cliente:",clientes["codigoClientes"][index]) #para trabajar las modificaciones se accede por el indice 
-                    print("Nombre del cliente:",clientes["nombreClientes"][index])
-                    print("Cuenta del cliente:",clientes["numeroCuenta"][index])
+                    print("Código del cliente:",cliente["codigoClientes"][index]) #para trabajar las modificaciones se accede por el indice 
+                    print("Nombre del cliente:",cliente["nombreClientes"][index])
+                    print("Cuenta del cliente:",cliente["numeroCuenta"][index])
 
                     nuevoCodigo=int(input("Ingrese el nuevo codigo del cliente: "))
                     nuevoNombre=input("Ingrese el nuevo nombre del cliente: ")
                     nuevaCuenta=int(input("Ingrese el nuevo número de cuenta del cliente: "))
 
-                    clientes["codigoClientes"][index]= nuevoCodigo #se asigna un nuevo valor al diccionario por medio del indice en la lista 
-                    clientes["nombreClientes"][index]= nuevoNombre
-                    clientes["numeroCuenta"][index]= nuevaCuenta
+                    cliente["codigoClientes"][index]= nuevoCodigo #se asigna un nuevo valor al diccionario por medio del indice en la lista 
+                    cliente["nombreClientes"][index]= nuevoNombre
+                    cliente["numeroCuenta"][index]= nuevaCuenta
 
                     print("El cliente ha sido modificado con exito!")
                     break
@@ -165,21 +165,21 @@ while True:
             encontrado = False
             for i in range(cantClientes):
                 #Aqui aun no se elimina solo esta como demostracion esta complejo el bolado xd
-                if clientes["codigoClientes"][i] == codigo:
+                if cliente["codigoClientes"][i] == codigo:
                     encontrado = True
                     print("\n   --- Cliente Encontrado! ---")
-                    print("\nCodigo Cliente: \t", clientes["codigoClientes"][i])
-                    print("Nombre Cliente: \t", clientes["nombreClientes"][i])
-                    print("Cuenta N°: \t\t", clientes["numeroCuenta"][i])
+                    print("\nCodigo Cliente: \t", cliente["codigoClientes"][i])
+                    print("Nombre Cliente: \t", cliente["nombreClientes"][i])
+                    print("Cuenta N°: \t\t", cliente["numeroCuenta"][i])
                     confirmation = input("\n¿Deseas eliminar el cliente? (si/no): ")
                     if confirmation.lower() == "si":
-                        clientes["codigoClientes"].pop(i)
-                        clientes["nombreClientes"].pop(i)
-                        clientes["numeroCuenta"].pop(i)
-                        clientes["depositos"].pop(i)
-                        clientes["retiros"].pop(i)
-                        clientes["fechaDe"].pop(i)
-                        clientes["fechaRe"].pop(i)
+                        cliente["codigoClientes"].pop(i)
+                        cliente["nombreClientes"].pop(i)
+                        cliente["numeroCuenta"].pop(i)
+                        cliente["depositos"].pop(i)
+                        cliente["retiros"].pop(i)
+                        cliente["fechaDe"].pop(i)
+                        cliente["fechaRe"].pop(i)
                         cantClientes -= 1
                         print("\n   --- Se elimino el cliente ---")
                     elif confirmation.lower() == "no":
@@ -196,10 +196,10 @@ while True:
         for i in range (cantClientes):
             print("-----------------------------")
             print("\tCliente", i+1)
-            print("\tCódigo:", clientes["codigoClientes"][i])
-            print("\tNombre:", clientes["nombreClientes"][i])
+            print("\tCódigo:", cliente["codigoClientes"][i])
+            print("\tNombre:", cliente["nombreClientes"][i])
             print("\tDepósitos:")
-            for deposito in clientes["depositos"]:
+            for deposito in cliente["depositos"]:
                 print("\t\t$:",deposito)
                 print("-----------------------------")
             
@@ -208,10 +208,10 @@ while True:
         for i in range (cantClientes):
             print("-----------------------------")
             print("\tCliente", i+1)
-            print("\tCódigo:", clientes["codigoClientes"][i])
-            print("\tNombre:", clientes["nombreClientes"][i])
+            print("\tCódigo:", cliente["codigoClientes"][i])
+            print("\tNombre:", cliente["nombreClientes"][i])
             print("\tDepósitos:")
-            for retiro in clientes["retiros"]:
+            for retiro in cliente["retiros"]:
                 print("\t\t$:",retiro)
                 print("-----------------------------")
     elif respuesta == 7:
