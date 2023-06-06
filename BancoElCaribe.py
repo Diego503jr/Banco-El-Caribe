@@ -12,8 +12,6 @@ banco = [
     }
 ]
 
-totDep = 0
-totRet = 0
 cantClientes = 0
 
 def cargador(): #Esta funcion es un cargador
@@ -108,7 +106,6 @@ while True:
                         cliente["saldo"] += valorDeposito
                         cliente["depositos"].append(valorDeposito)
                         cliente["fechaDepositos"].append(fechaDeposito)
-                        totDep += valorDeposito
                         print("\n   --- ¡Su Deposito fue satisfactoriamente hecho! ---")
                         break
                     elif tipoTransaccionAgregar == 2:
@@ -121,7 +118,6 @@ while True:
                                     fechaRetiro = input("Digite la fecha de este retiro: ")
                                     cliente["retiros"].append(valorRetiro)
                                     cliente["fechaRetiros"].append(fechaRetiro)
-                                    totRet += valorRetiro
                                     print("\n   --- ¡Su Retiro fue satisfactoriamente hecho! ---")
                                     break
                                 else:
@@ -134,7 +130,6 @@ while True:
             if not encontrado:
                 print("\n   --- Cliente No Encontrado! ---")
                 continue
-            # saldoF = totDep - totRet
             break
 
     elif respuesta == 3: #En este si el cliente no tiene retiros o depositos, en esa parte da error :c
