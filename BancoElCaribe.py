@@ -1,40 +1,53 @@
 import time
-print(" CALCULANDO", end= " ")
-for t in range(5):
-      print(" . ", end= " ")
-      time.sleep(3)
-#Datos quemados son esos y se pueden revisar descomentando lo que esta comentado y vicerversa con lo que no esta comentado en la opcion 
-clientes = {
-    "codigoClientes" : [1001,1002,1003,1004],
-    "nombreClientes" : ["Diego","Gabriela","Carlos","Vladimir"],
-    "numeroCuenta" : [111001,111002,111003,111004,],
-    "retiros" : [100,200,300,400],
-    "depositos" : [1000,2000,3000,4000],
-    "fechaRe" : ["12/01/23","13/01/23","14/01/23","14/01/23"],
-    "fechaDe" : ["12/01/23","13/01/23","14/01/23","14/01/23"],
-}
+banco = [
+   { 
+    "codigoClientes": 10001,
+    "nombreClientes": "Cesar Pilajuan", 
+    "numeroCuentas": 1110001,
+    "saldo": 50, 
+    "retiros": [50],
+    "fechaRetiros": ["15/01/2023 8:42:59"],
+    "depositos": [100],
+    "fechaDepositos": ["14/01/2023 7:43:01"]
+    }
+]
+
 totDep = 0
 totRet = 0
-cantClientes = 4
+cantClientes = 0
 
-#Esta funcion lo que hace es manejar el error si se escribe Strings muestra el error que no es un valor numerico
-def manejoErrorOpcion(msj):
+def cargador(): #Esta funcion es un cargador
+    print("\nCargando", end= " ")
+    for t in range(3):
+          print(" . ", end= " ")
+          time.sleep(1)
+
+def manejoErrorINT(msj): #Esta funcion maneja si en el input se ingresa tipo STR
     while True:
         try:
             value = int(input(msj))
             return value
         except ValueError:
-            print("\n   --- Error! Digite valores numericos ---")
+            print("\n   --- Error! Digite numeros ---")
+
+def manejoErrorSTR(msj): #Esta funcion maneja si en el input se ingresa tipo INT
+    while True:
+        value = str(input(msj))
+        if value.isdigit():
+            print("\n   --- Error! Digite texto ---")
+        else:
+            return value
 
 print("""\n
          *****************************************************************
          *      BIENVENIDOS AL PROGRAMA DE EL BANCO EL CARIBE            *
-         *****************************************************************""") #Esto lo dejé fuera del bucle 
-                                                                                #para que solo aparezca una vez
+         *****************************************************************""")  
+
 
 while True:
-    print("\nA CONTINUACIÓN SE TE PRESENTA EL MENÚ DE OPCIONES DE NUESTRO PROGRAMA: ") #Esto si esta dentro para 
-    print("\n1. Agregar cliente.")                                                     #que muestre el menú siempre
+    cargador()
+    print("\nA CONTINUACIÓN SE TE PRESENTA EL MENÚ DE OPCIONES DE NUESTRO PROGRAMA: ")  
+    print("\n1. Agregar cliente.")                                                     
     print("2. Agregar transacción.")
     print("3. Modificar cliente.")
     print("4. Eliminar cliente.")
@@ -42,64 +55,86 @@ while True:
     print("6. Mostrar lista de clientes con retiros.")
     print("7. Mostrar lista con clientes ordenada por Número de cuenta.")
     print("8. Salir del programa.")
-    respuesta = manejoErrorOpcion("Ingrese la opción del menú deseada: ")
+    respuesta = manejoErrorINT("Ingrese la opción del menú deseada: ")
 
     if respuesta == 1:
+        cargador()
+        print("\n --- AGREGAR CLIENTE --- ")
         while True:
-            cant = int(input("\n¿Cuántos clientes desea agregar?: ")) 
+            cant = manejoErrorINT("\n¿Cuántos clientes desea agregar?: ") 
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
-                print("Cliente N°", cantClientes+1)
-                codigoClientes = input("Digite el código del cliente: ")
-                nombreClientes = input("Digite el nombre del cliente: ")
+                print("\nCliente N°", cantClientes+1)
+                codigoClientes = manejoErrorINT("Digite el código del cliente: ")
+                nombreClientes = manejoErrorSTR("Digite el nombre del cliente: ")
                 numeroCuenta = input("Digite el numero de cuenta: ")
-                clientes["codigoClientes"].append(codigoClientes)
-                clientes["nombreClientes"].append(nombreClientes)
-                clientes["numeroCuenta"].append(numeroCuenta)
+                cliente = { #Las variables anteriores se agregaran al diccionario y los retiros y depositos iniciara como lista
+                "codigoClientes": codigoClientes, 
+                "nombreClientes": nombreClientes, 
+                "numeroCuentas": numeroCuenta, 
+                "saldo": 0, 
+                "retiros": [],
+                "fechaRetiros": [],
+                "depositos": [],
+                "fechaDepositos": []
+                }
+                banco.append(cliente) #Se agrega en cada reccorido el diccionario a la lista banco
                 cantClientes += 1 #Este contador aparece en el sistema, sirve para recorrer los diccionarios y servira para obtener los promedios creo
-            salir = str(input("\n¿Desea regresar al menú?: ")) #Aquí lo saca completamente del programa
-            if salir == "si":                                    #solo si escribe "no"
+            salir = manejoErrorSTR("\n¿Desea regresar al menú? \n(si/no): ") #Manda al menu principal si agrega si
+            if salir.lower() == "si":
                 break
+            else:
+                continue
 
     elif respuesta == 2:
+        cargador()
         print("\n --- AGREGAR TRANSACCION --- ")
         #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
         while True:
-            codigo = manejoErrorOpcion("\nDigite el código de cliente: ")
+            codigo = manejoErrorINT("\nDigite el código de cliente: ")
             encontrado = False
-            for i in range(cantClientes):
-                #Verifica si hay un codigo que concuerde con el cliente
-                if clientes["codigoClientes"][i] == codigo:
+            for cliente in banco:
+                if cliente["codigoClientes"] == codigo: #Verifica si hay un codigo que concuerde con el cliente
                     encontrado = True
                     print("\n   --- Cliente Encontrado! ---")
-                    print("Codigo Cliente: \t", clientes["codigoClientes"][i])
-                    print("Nombre Cliente: \t", clientes["nombreClientes"][i])
-                    print("Cuenta N°: \t\t", clientes["numeroCuenta"][i])
-                    #Aun no sirve el agregar porque esta complejo esto xd
-                    tipoTransaccionAgregar = manejoErrorOpcion("\n\nTipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
+                    print("Codigo Cliente: \t", cliente["codigoClientes"])
+                    print("Nombre Cliente: \t", cliente["nombreClientes"])
+                    print("Cuenta N°: \t\t", cliente["numeroCuentas"])
+                    print("Saldo: $ \t\t", cliente["saldo"])
+                    tipoTransaccionAgregar = manejoErrorINT("\n\nTipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
                     if tipoTransaccionAgregar == 1 :
                         print("\n - DEPOSITO - ")
-                        valorDeposito = manejoErrorOpcion("Ingrese la cifra a depositar: $ ")
-                        clientes["depositos"].append(valorDeposito)
-                        totDep += valorDeposito
+                        valorDeposito = manejoErrorINT("Ingrese la cifra a depositar: $ ")
                         fechaDeposito = input("Digite la fecha de este depósito: ")
-                        clientes["depositos"].append(valorDeposito)
-                        clientes["fechaDe"].append(fechaDeposito)
+                        cliente["saldo"] += valorDeposito
+                        cliente["depositos"].append(valorDeposito)
+                        cliente["fechaDepositos"].append(fechaDeposito)
+                        totDep += valorDeposito
                         print("\n   --- ¡Su Deposito fue satisfactoriamente hecho! ---")
+                        break
                     elif tipoTransaccionAgregar == 2:
                         print("\n - RETIRO -")
-                        valorRetiro = manejoErrorOpcion("\nIngrese la cifra a depositar: $ ")
-                        clientes["retiros"].append(valorRetiro)
-                        totRet += valorRetiro
-                        fechaRetiro = input("Digite la fecha de este retiro: ")
-                        clientes["retiros"].append(valorRetiro)
-                        clientes["fechaRe"].append(fechaRetiro)
-                        print("\n   --- ¡Su Retiro fue satisfactoriamente hecho! ---")
+                        if cliente["saldo"] > 0: #Se comprueba si el saldo esta a 0 y asi no realizara el retiro
+                            while True:
+                                valorRetiro = manejoErrorINT("\nIngrese la cifra a depositar: $ ")
+                                if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo es aun menor lanza una alerta
+                                    cliente["saldo"] -= valorRetiro
+                                    fechaRetiro = input("Digite la fecha de este retiro: ")
+                                    cliente["retiros"].append(valorRetiro)
+                                    cliente["fechaRetiros"].append(fechaRetiro)
+                                    totRet += valorRetiro
+                                    print("\n   --- ¡Su Retiro fue satisfactoriamente hecho! ---")
+                                    break
+                                else:
+                                    print("\n   --- No tiene saldo suficiente ---")
+                                    continue
+                        else:
+                            print("\n   --- No posee saldo aún ---")
                     else:
                         print("\nPor favor ingresa una de las opciones dadas!")
             if not encontrado:
                 print("\n   --- Cliente No Encontrado! ---")
                 continue
-            saldoF = totDep - totRet
+            # saldoF = totDep - totRet
             break
 
     elif respuesta == 3: #En este si el cliente no tiene retiros o depositos, en esa parte da error :c
@@ -131,7 +166,7 @@ while True:
         print("\n --- ELIMINAR CLIENTE --- ")
         #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
         while True:
-            codigo = manejoErrorOpcion("\nDigite el código de cliente: ")
+            codigo = manejoErrorINT("\nDigite el código de cliente: ")
             encontrado = False
             for i in range(cantClientes):
                 #Aqui aun no se elimina solo esta como demostracion esta complejo el bolado xd
@@ -185,20 +220,31 @@ while True:
                 print("\t\t$:",retiro)
                 print("-----------------------------")
     elif respuesta == 7:
-         print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
+        print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
         # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
-        cuentas_indices = list(zip(clientes["numeroCuenta"], range(cantClientes)))
-        cuentas_indices = sorted(cuentas_indices)
-        for cuenta, indice in cuentas_indices:
-            print("\n Cliente N°", indice + 1, "\n")
-            print("Número de cuenta:", clientes["numeroCuenta"][indice])
-            print("Nombre del cliente:", clientes["nombreClientes"][indice])
-            print("Código del cliente:", clientes["codigoClientes"][indice])
-            print("Depósitos: $", clientes["depositos"][indice])
-            print("Retiros: $", clientes["retiros"][indice])
-            print("Fecha de Retiro:", clientes["fechaRe"][indice])
-            print("Fecha de Depósito:", clientes["fechaDe"][indice])
-            print("------------------------------------------------")
+        # cuentas_indices = list(zip(clientes["numeroCuenta"], range(cantClientes)))
+        # cuentas_indices = sorted(cuentas_indices)
+        # for cuenta, indice in cuentas_indices:
+        #     print("\n Cliente N°", indice + 1, "\n")
+        #     print("Número de cuenta:", clientes["numeroCuenta"][indice])
+        #     print("Nombre del cliente:", clientes["nombreClientes"][indice])
+        #     print("Código del cliente:", clientes["codigoClientes"][indice])
+        #     print("Depósitos: $", clientes["depositos"][indice])
+        #     print("Retiros: $", clientes["retiros"][indice])
+        #     print("Fecha de Retiro:", clientes["fechaRe"][indice])
+        #     print("Fecha de Depósito:", clientes["fechaDe"][indice])
+        #     print("------------------------------------------------")
+        for cliente in banco:
+            print("Codigo: ", cliente["codigoClientes"])
+            print("Nombre: ", cliente["nombreClientes"])
+            print("Cuenta: ", cliente["numeroCuentas"])
+            print("Saldo: $\t", cliente["saldo"])
+            #De deposito en adelante se tiene que iterar de nuevo
+            print("Fechas de Depósito: \t", cliente["fechaDepositos"])
+            print("Depósitos: \t\t", cliente["depositos"])
+            print("Fechas de Retiro: \t", cliente["fechaRetiros"])
+            print("Retiros: \t\t", cliente["retiros"])
+
     elif respuesta == 8:
         print("""\n
                 ***********************************************
