@@ -192,7 +192,7 @@ while True:
             break
 
     elif respuesta == 5: #ya muestra todos los depositos pero falta corregir 
-        print("\n --- Lista de clientes con sus respectivos depositos --- ") 
+        print("\n --- LISTA DE CLIENTES CON SUS RESPECTIVOS DEPOSITOS --- ") 
         for i in range (cantClientes):
             print("-----------------------------")
             print("\tCliente", i+1)
@@ -204,7 +204,7 @@ while True:
                 print("-----------------------------")
             
     elif respuesta == 6: #ya muestra todos los retiros pero falta corregir
-        print("\n --- Lista de clientes con sus respectivos retiros --- ") 
+        print("\n --- LISTA DE CLIENTES CON SUS RESPECTIVOS RETIROS --- ") 
         for i in range (cantClientes):
             print("-----------------------------")
             print("\tCliente", i+1)
