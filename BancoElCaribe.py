@@ -1,4 +1,5 @@
 import time
+import datetime #para poder agregar la fecha y hora 
 banco = [
    { 
     "codigoClientes": 10001,
@@ -6,9 +7,9 @@ banco = [
     "numeroCuentas": 1110001,
     "saldo": 50, 
     "retiros": [50],
-    "fechaRetiros": ["15/01/2023 8:42:59"],
+    "horayfecha_Retiros": ["2022-01-14 7:43:15"], #para agregar la fecha y hora actuales 
     "depositos": [100],
-    "fechaDepositos": ["14/01/2023 7:43:01"]
+    "horayfecha_Depositos": ["2023-01-14 7:43:15"] #para agregar la fecha y hora actuales 
     }
 ]
 
@@ -71,9 +72,9 @@ while True:
                 "numeroCuentas": numeroCuenta, 
                 "saldo": 0, 
                 "retiros": [],
-                "fechaRetiros": [],
+                "horayfecha_Retiros": [], 
                 "depositos": [],
-                "fechaDepositos": []
+                "horayfecha_Depositos": []
                 }
                 banco.append(cliente) #Se agrega en cada reccorido el diccionario a la lista banco
                 cantClientes += 1 #Este contador aparece en el sistema, sirve para recorrer los diccionarios y servira para obtener los promedios creo
@@ -102,10 +103,12 @@ while True:
                     if tipoTransaccionAgregar == 1 :
                         print("\n - DEPOSITO - ")
                         valorDeposito = manejoErrorINT("Ingrese la cifra a depositar: $ ")
-                        fechaDeposito = input("Digite la fecha de este depósito: ")
+                        horayfecha = datetime.datetime.now() 
+                        formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
+                        print("Fecha y hora del depósito realizado:", formato_fecha) #para agregar la fecha y hora actuales 
                         cliente["saldo"] += valorDeposito
                         cliente["depositos"].append(valorDeposito)
-                        cliente["fechaDepositos"].append(fechaDeposito)
+                        cliente["horayfecha_Depositos"].append(formato_fecha)
                         print("\n   --- ¡Su Deposito fue satisfactoriamente hecho! ---")
                         break
                     elif tipoTransaccionAgregar == 2:
@@ -115,9 +118,11 @@ while True:
                                 valorRetiro = manejoErrorINT("\nIngrese la cifra a depositar: $ ")
                                 if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo es aun menor lanza una alerta
                                     cliente["saldo"] -= valorRetiro
-                                    fechaRetiro = input("Digite la fecha de este retiro: ")
+                                    horayfecha = datetime.datetime.now() 
+                                    formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #para agregar la fecha y hora actuales 
+                                    print("Fecha y hora del retiro realizado:", formato_fecha)
                                     cliente["retiros"].append(valorRetiro)
-                                    cliente["fechaRetiros"].append(fechaRetiro)
+                                    cliente["horayfecha_Retiros"].append(formato_fecha)
                                     print("\n   --- ¡Su Retiro fue satisfactoriamente hecho! ---")
                                     break
                                 else:
@@ -191,29 +196,31 @@ while True:
                 continue
             break
 
-    elif respuesta == 5: #ya muestra todos los depositos pero falta corregir 
+    elif respuesta == 5:  
         print("\n --- LISTA DE CLIENTES CON SUS RESPECTIVOS DEPOSITOS --- ") 
-        for i in range (cantClientes):
-            print("-----------------------------")
-            print("\tCliente", i+1)
-            print("\tCódigo:", cliente["codigoClientes"][i])
-            print("\tNombre:", cliente["nombreClientes"][i])
-            print("\tDepósitos:")
-            for deposito in cliente["depositos"]:
-                print("\t\t$:",deposito)
-                print("-----------------------------")
+        for cliente in (banco):
+            if len(cliente["depositos"]) > 0: #si el cliente no ha realizado depositos no se mostrara en la lista
+                print("-------------------------------------------------------------------------------")
+                print("\t\tCódigo:", cliente["codigoClientes"])
+                print("\t\tNombre:", cliente["nombreClientes"])
+                print("\t\tSaldo: $ ", cliente["saldo"])
+                for i in range(len(cliente["depositos"])): #para que se muestren los depositos sin el formato de lista 
+                    print("\t\tDepósito", i + 1, ": $", cliente["depositos"][i])
+                    print("\t\tFecha y hora del depósito realizado:", cliente["horayfecha_Depositos"][i])
+                    print("----------------------------------------------------------------------------")
             
-    elif respuesta == 6: #ya muestra todos los retiros pero falta corregir
+    elif respuesta == 6: 
         print("\n --- LISTA DE CLIENTES CON SUS RESPECTIVOS RETIROS --- ") 
-        for i in range (cantClientes):
-            print("-----------------------------")
-            print("\tCliente", i+1)
-            print("\tCódigo:", cliente["codigoClientes"][i])
-            print("\tNombre:", cliente["nombreClientes"][i])
-            print("\tDepósitos:")
-            for retiro in cliente["retiros"]:
-                print("\t\t$:",retiro)
-                print("-----------------------------")
+        for cliente in (banco):
+            if len(cliente["retiros"]) > 0: #si el cliente no ha realizado retiros no se mostrara en la lista 
+                print("----------------------------------------------------------------------------")
+                print("\t\tCódigo:", cliente["codigoClientes"])
+                print("\t\tNombre:", cliente["nombreClientes"])
+                print("\t\tSaldo: $", cliente["saldo"])
+                for i in range(len(cliente["retiros"])): #para que se muestren los depositos sin el formato de lista 
+                    print("\t\tRetiros", i + 1, ": $", cliente["retiros"][i])
+                    print("\t\tFecha y hora del retiro realizado:", cliente["horayfecha_Retiros"][i])
+                    print("------------------------------------------------------------------------")
     elif respuesta == 7:
         print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
         # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
