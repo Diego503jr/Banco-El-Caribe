@@ -207,8 +207,7 @@ while True:
                 for i in range(len(cliente["depositos"])): #para que se muestren los depositos sin el formato de lista 
                     print("\t\tDepósito", i + 1, ": $", cliente["depositos"][i])
                     print("\t\tFecha y hora del depósito realizado:", cliente["horayfecha_Depositos"][i])
-                    print("----------------------------------------------------------------------------")
-            
+
     elif respuesta == 6: 
         print("\n --- LISTA DE CLIENTES CON SUS RESPECTIVOS RETIROS --- ") 
         for cliente in (banco):
@@ -220,7 +219,7 @@ while True:
                 for i in range(len(cliente["retiros"])): #para que se muestren los depositos sin el formato de lista 
                     print("\t\tRetiros", i + 1, ": $", cliente["retiros"][i])
                     print("\t\tFecha y hora del retiro realizado:", cliente["horayfecha_Retiros"][i])
-                    print("------------------------------------------------------------------------")
+
     elif respuesta == 7:
         print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
         # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
