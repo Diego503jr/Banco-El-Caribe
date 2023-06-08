@@ -183,8 +183,8 @@ while True:
                         cliente["numeroCuenta"].pop(i)
                         cliente["depositos"].pop(i)
                         cliente["retiros"].pop(i)
-                        cliente["fechaDe"].pop(i)
-                        cliente["fechaRe"].pop(i)
+                        cliente["horayfecha_Depositos"].pop(i)
+                        cliente["horayfecha_Retiros"].pop(i)
                         cantClientes -= 1
                         print("\n   --- Se elimino el cliente ---")
                     elif confirmation.lower() == "no":
