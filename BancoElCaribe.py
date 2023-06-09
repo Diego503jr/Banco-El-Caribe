@@ -132,56 +132,57 @@ while True:
                 continue
             break
 
-    elif respuesta == 3: #En este si el cliente no tiene retiros o depositos, en esa parte da error :c
-        cant=int(input("¿Cuántos clientes desea modificar?")) #ver la cantidad de clientes a modificar 
+    elif respuesta == 3:
+        cargador()
+        print("\n --- MODIFICAR CLIENTE --- ")
+        cant=manejoErrorINT("\n¿Cuántos clientes desea modificar? ") #ver la cantidad de clientes a modificar 
         for i in range (cant):
             while True:
-                codigo=int(input("Ingrese el código del cliente a modificar: "))
-                if codigo in cliente["codigoClientes"]: #si el codigo ingresado existe en el diccionario clientes proecede a buscarlo por su indice 
-                    index = cliente["codigoClientes"].index(codigo)
-                    print("Cliente encontrado!")
-                    print("Código del cliente:",cliente["codigoClientes"][index]) #para trabajar las modificaciones se accede por el indice 
-                    print("Nombre del cliente:",cliente["nombreClientes"][index])
-                    print("Cuenta del cliente:",cliente["numeroCuenta"][index])
+                codigo = manejoErrorINT("Ingrese el código del cliente a modificar: ")
+                encontrado = False
+                for cliente_actual in banco:
+                    if cliente_actual["codigoClientes"] == codigo:
+                        encontrado = True
+                        print("\nCLIENTE ENCONTRADO!")
+                        print("Código del cliente:", cliente_actual["codigoClientes"])
+                        print("Nombre del cliente:", cliente_actual["nombreClientes"])
+                        print("Cuenta del cliente:", cliente_actual["numeroCuentas"])
 
-                    nuevoCodigo=int(input("Ingrese el nuevo codigo del cliente: "))
-                    nuevoNombre=input("Ingrese el nuevo nombre del cliente: ")
-                    nuevaCuenta=int(input("Ingrese el nuevo número de cuenta del cliente: "))
+                        nuevoCodigo = manejoErrorINT("\tIngrese el nuevo código del cliente: ")
+                        nuevoNombre = manejoErrorSTR("\tIngrese el nuevo nombre del cliente: ")
+                        nuevaCuenta = manejoErrorINT("\tIngrese el nuevo número de cuenta del cliente: ")
+                        print()
 
-                    cliente["codigoClientes"][index]= nuevoCodigo #se asigna un nuevo valor al diccionario por medio del indice en la lista 
-                    cliente["nombreClientes"][index]= nuevoNombre
-                    cliente["numeroCuenta"][index]= nuevaCuenta
+                        cliente_actual["codigoClientes"] = nuevoCodigo
+                        cliente_actual["nombreClientes"] = nuevoNombre
+                        cliente_actual["numeroCuentas"] = nuevaCuenta
 
-                    print("El cliente ha sido modificado con exito!")
-                    break
+                        print("El cliente ha sido modificado con éxito!")
+                        break
                 else:
                     print("Cliente no encontrado")
-
+                    break
+                break
+    
     elif respuesta == 4:
         print("\n --- ELIMINAR CLIENTE --- ")
         #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
         while True:
             codigo = manejoErrorINT("\nDigite el código de cliente: ")
             encontrado = False
-            for i in range(cantClientes):
-                #Aqui aun no se elimina solo esta como demostracion esta complejo el bolado xd
-                if cliente["codigoClientes"][i] == codigo:
+            for indice, cliente in enumerate(banco):
+                if cliente["codigoClientes"] == codigo:
                     encontrado = True
                     print("\n   --- Cliente Encontrado! ---")
-                    print("\nCodigo Cliente: \t", cliente["codigoClientes"][i])
-                    print("Nombre Cliente: \t", cliente["nombreClientes"][i])
-                    print("Cuenta N°: \t\t", cliente["numeroCuenta"][i])
-                    confirmation = input("\n¿Deseas eliminar el cliente? (si/no): ")
+                    print("\nCodigo Cliente: \t", cliente["codigoClientes"])
+                    print("Nombre Cliente: \t", cliente["nombreClientes"])
+                    print("Cuenta N°: \t\t", cliente["numeroCuentas"])
+                    confirmation = input("\n¿DESEA ELIMINAR EL CLIENTE? (si/no): ")
                     if confirmation.lower() == "si":
-                        cliente["codigoClientes"].pop(i)
-                        cliente["nombreClientes"].pop(i)
-                        cliente["numeroCuenta"].pop(i)
-                        cliente["depositos"].pop(i)
-                        cliente["retiros"].pop(i)
-                        cliente["fechaDe"].pop(i)
-                        cliente["fechaRe"].pop(i)
-                        cantClientes -= 1
-                        print("\n   --- Se elimino el cliente ---")
+                        for cliente in banco:
+                            banco.pop(indice)
+                            cantClientes -= 1
+                            print("\n   --- Se elimino el cliente correctamente ---")
                     elif confirmation.lower() == "no":
                         print("\n   --- No se elimino el cliente ---")
                     else:
