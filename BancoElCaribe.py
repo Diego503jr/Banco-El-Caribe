@@ -242,9 +242,9 @@ while True:
             print("Cuenta: ", cliente["numeroCuentas"])
             print("Saldo: $\t", cliente["saldo"])
             #De deposito en adelante se tiene que iterar de nuevo
-            print("Fechas de Depósito: \t", cliente["fechaDepositos"])
+            print("Fechas de Depósito: \t", cliente["horayfecha_Depositos"])
             print("Depósitos: \t\t", cliente["depositos"])
-            print("Fechas de Retiro: \t", cliente["fechaRetiros"])
+            print("Fechas de Retiro: \t", cliente["horayfecha_Retiros"])
             print("Retiros: \t\t", cliente["retiros"])
 
     elif respuesta == 8:
