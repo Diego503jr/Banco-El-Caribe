@@ -222,32 +222,29 @@ while True:
                     print("\t\tFecha y hora del retiro realizado:", cliente["horayfecha_Retiros"][i])
 
     elif respuesta == 7:
-        print("\n --- Lista de Clientes ordenados según número de cuenta --- ")
-        # Obtener una lista de tuplas (numeroCuenta, indice) para ordenar los clientes
-        # cuentas_indices = list(zip(clientes["numeroCuenta"], range(cantClientes)))
-        # cuentas_indices = sorted(cuentas_indices)
-        # for cuenta, indice in cuentas_indices:
-        #     print("\n Cliente N°", indice + 1, "\n")
-        #     print("Número de cuenta:", clientes["numeroCuenta"][indice])
-        #     print("Nombre del cliente:", clientes["nombreClientes"][indice])
-        #     print("Código del cliente:", clientes["codigoClientes"][indice])
-        #     print("Depósitos: $", clientes["depositos"][indice])
-        #     print("Retiros: $", clientes["retiros"][indice])
-        #     print("Fecha de Retiro:", clientes["fechaRe"][indice])
-        #     print("Fecha de Depósito:", clientes["fechaDe"][indice])
-        #     print("------------------------------------------------")
-        for cliente in banco:
-            print("Codigo: ", cliente["codigoClientes"])
-            print("Nombre: ", cliente["nombreClientes"])
-            print("Cuenta: ", cliente["numeroCuentas"])
-            print("Saldo: $\t", cliente["saldo"])
-            #De deposito en adelante se tiene que iterar de nuevo
-            print("Fechas de Depósito: \t", cliente["horayfecha_Depositos"])
-            print("Depósitos: \t\t", cliente["depositos"])
-            print("Fechas de Retiro: \t", cliente["horayfecha_Retiros"])
-            print("Retiros: \t\t", cliente["retiros"])
-
+        cargador()
+        print("\n-------------------------------------- LISTA DE CLIENTES ORDENADA SEGÚN NÚMERO DE CUENTA ------------------------------------")
+        print("\n-----------------------------------------------------------------------------------------------------------------------------")
+        print("{:<10s} {:<15s} {:<15s} {:<15s} {:<15s} {:<20s} {:<11s}".format(
+            "Cliente N°", "Cuenta", "Código", "Nombre", "Saldo", "Depósitos", "Retiros"))
+        print("-----------------------------------------------------------------------------------------------------------------------------")
+        banco_ordenado = sorted(banco, key=lambda cliente: int(cliente["numeroCuentas"]))
+        for i, cliente in enumerate(banco_ordenado, start=1):
+            saldo = cliente["saldo"]
+            depositos = sum(cliente["depositos"])
+            retiros = sum(cliente["retiros"])
+            print("{:<10d} {:<15s} {:<15s} {:<15s} ${:<14,.2f} ${:<20,.2f} ${:<10,.2f}".format(
+                i,
+                str(cliente["numeroCuentas"]),
+                str(cliente["codigoClientes"]),
+                cliente["nombreClientes"],
+                saldo,
+                depositos,
+                retiros,
+            ))
+            print("-----------------------------------------------------------------------------------------------------------------------------")
     elif respuesta == 8:
+        cargador()
         print("""\n
                 ***********************************************
                 *          HA FINALIZADO EL PROGRAMA          *
@@ -256,7 +253,6 @@ while True:
                 *******************************************************
                 *       GRACIAS POR UTILIZAR NUESTRO PROGRAMA         *
                 *******************************************************""")
-
         break
     else:
         print("\n Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
