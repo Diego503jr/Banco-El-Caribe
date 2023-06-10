@@ -1,24 +1,23 @@
 import time
 banco = [
-   { 
+    {
     "codigoClientes": 10001,
     "nombreClientes": "Cesar Pilajuan", 
     "numeroCuentas": 1110001,
     "saldo": 50, 
-    "retiros": [50],
-    "fechaRetiros": ["15/01/2023 8:42:59"],
-    "depositos": [100],
-    "fechaDepositos": ["14/01/2023 7:43:01"]
+    "retiros": [50, 12],
+    "fechaRetiros": ["15/01/2023 8:42:59", "15/01/2023 8:53:01"],
+    "depositos": [100, 12],
+    "fechaDepositos": ["14/01/2023 7:43:01", "14/01/2023 7:53:10"]
     }
 ]
-
-cantClientes = 0
+cantClientes = 1
 
 def cargador(): #Esta funcion es un cargador
     print("\nCargando", end= " ")
     for t in range(3):
           print(" . ", end= " ")
-          time.sleep(1)
+          time.sleep(0.7)
 
 def manejoErrorINT(msj): #Esta funcion maneja si en el input se ingresa tipo STR
     while True:
@@ -59,21 +58,40 @@ while True:
         cargador()
         print("\n --- AGREGAR CLIENTE --- ")
         while True:
-            cant = manejoErrorINT("\n¿Cuántos clientes desea agregar?: ") 
+            cant = manejoErrorINT("\n¿Cuántos clientes desea agregar?: ")
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
                 print("\nCliente N°", cantClientes+1)
                 codigoClientes = manejoErrorINT("Digite el código del cliente: ")
                 nombreClientes = manejoErrorSTR("Digite el nombre del cliente: ")
-                numeroCuenta = input("Digite el numero de cuenta: ")
-                cliente = { #Las variables anteriores se agregaran al diccionario y los retiros y depositos iniciara como lista
-                "codigoClientes": codigoClientes, 
-                "nombreClientes": nombreClientes, 
-                "numeroCuentas": numeroCuenta, 
-                "saldo": 0, 
-                "retiros": [],
-                "fechaRetiros": [],
-                "depositos": [],
-                "fechaDepositos": []
+                numeroCuenta = manejoErrorINT("Digite el numero de cuenta: ")
+                #Verifica si el codigo existe
+                codigoExiste = False
+                cuentaExiste = False
+                for cliente in banco:
+                    if cliente["codigoClientes"] == codigoClientes:
+                        codigoExiste = True
+                        break
+                    elif cliente["numeroCuentas"] == numeroCuenta:
+                        cuentaExiste = True
+                        break
+
+                if codigoExiste:
+                    print("\n   --- El codigo ya lo tiene otro cliente ---")
+                    continue
+                if cuentaExiste:
+                    print("\n   --- La cuenta ya la tiene otro cliente ---")
+                    continue
+
+                #Las variables anteriores se agregaran al diccionario y los retiros y depositos iniciara como lista
+                cliente = {
+                    "codigoClientes": codigoClientes,
+                    "nombreClientes": nombreClientes,
+                    "numeroCuentas":   numeroCuenta,
+                    "saldo":                0,
+                    "retiros":[],
+                    "fechaRetiros":[],
+                    "depositos":[],
+                    "fechaDepositos":[]
                 }
                 banco.append(cliente) #Se agrega en cada reccorido el diccionario a la lista banco
                 cantClientes += 1 #Este contador aparece en el sistema, sirve para recorrer los diccionarios y servira para obtener los promedios creo
