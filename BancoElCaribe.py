@@ -179,34 +179,57 @@ while True:
     elif respuesta == 3:
         cargador()
         if cantClientes > 0:
-            print(" --- MODIFICAR CLIENTE --- ")
-            cant = manejoErrorINT("\n¿Cuántos clientes desea modificar? ") #ver la cantidad de clientes a modificar 
-            for i in range (cant):
+            print("\n --- MODIFICAR CLIENTE --- ")
+            cant = manejoErrorINT("\n¿Cuántos clientes desea modificar? ")
+            for i in range(cant):
                 while True:
-                    codigo = manejoErrorINT("\nIngrese el código del cliente a modificar: ")
-                    encontrado = False
+                    print("\nSi desea cancelar y salir presione 0, seguido de Enter")
+                    codigo = manejoErrorINT("Ingrese el código del cliente a modificar: ")
+                    codigoExiste = False  #Para verificar si el código existe
+                    if codigo == 0:
+                        break
                     for cliente_actual in banco:
                         if cliente_actual["codigoClientes"] == codigo:
-                            encontrado = True
-                            print("\n   --- CLIENTE ENCONTRADO! ---")
-                            print("\nCódigo del cliente: \t", cliente_actual["codigoClientes"])
+                            codigoExiste = True  #El código existe en algún cliente
+                            break
+                    if codigoExiste: #Como el código existe, muestra los datos del cliente con dicho código
+                        while True:
+                            print("\nCLIENTE ENCONTRADO!")
+                            print("Código del cliente: \t", cliente_actual["codigoClientes"])
                             print("Nombre del cliente: \t", cliente_actual["nombreClientes"])
                             print("Cuenta del cliente: \t", cliente_actual["numeroCuentas"])
+                            print("\nSi desea cancelar y salir presione 0, seguido de Enter")
 
-                            nuevoCodigo = manejoErrorINT("\n\tIngrese el nuevo código del cliente: ")
-                            nuevoNombre = manejoErrorSTR("\tIngrese el nuevo nombre del cliente: ")
+                            nuevoCodigo = manejoErrorINT("\tIngrese el nuevo código del cliente: ") #solicito los nuevos datos
+                            if nuevoCodigo == 0: #por si quiere salir antes de el proceso
+                                codigoExiste = False
+                                break
+                            nuevoNombre = manejoErrorSTR("\tIngrese el nuevo nombre del cliente: ") #solicito los nuevos datos
                             nuevaCuenta = manejoErrorINT("\tIngrese el nuevo número de cuenta del cliente: ")
 
-                            cliente_actual["codigoClientes"] = nuevoCodigo
-                            cliente_actual["nombreClientes"] = nuevoNombre
-                            cliente_actual["numeroCuentas"] = nuevaCuenta
+                            codigoExiste = False  
+                            for cliente in banco:
+                                if cliente["codigoClientes"] == nuevoCodigo and cliente["codigoClientes"] != codigo: 
+                                    codigoExiste = True #aquí se valida, si el nuevo código esta en clientes 
+                                    break   #pero tambien que no sea igual al código del usuario a modificar
+                                            #por si se necesita que siga siendo el mismo código
+                           
+                            if not codigoExiste: #ahora reemplazamos los datos del usuario
+                                cliente_actual["codigoClientes"] = nuevoCodigo
+                                cliente_actual["nombreClientes"] = nuevoNombre
+                                cliente_actual["numeroCuentas"] = nuevaCuenta
 
-                            print("\n   --- El cliente ha sido modificado con éxito! ---")
+                                print("\n   --- El cliente ha sido modificado con éxito! ---")
+                                break
+                            else:
+                                print("\n   --- El código ya lo posee otro cliente ---")
+                        if nuevoCodigo == 0: #aquí genera la salida del usuario, cuando este quiera salir
+                            codigoExiste = False
                             break
+                        break
                     else:
                         print("\n    --- Cliente no encontrado! ---")
                         break
-                    break
         else:
             print("   --- No hay clientes ---")
 
@@ -217,31 +240,23 @@ while True:
             print(" --- ELIMINAR CLIENTE --- ")
             while True:
                 codigo = manejoErrorINT("\nDigite el código de cliente: ")
-                encontrado = False
-                for indice, cliente in enumerate(banco):
+                for indice, cliente in enumerate(banco): #le indicamos que numere y que nos dé en la variable indice, la posición del cliente
                     if cliente["codigoClientes"] == codigo:
-                        encontrado = True
-                        print("\n   --- CLIENTE ENCONTRADO! ---")
+                        print("\n   --- CLIENTE ENCONTRADO! ---") #mostramos los datos del cliente 
                         print("\nCodigo Cliente: \t", cliente["codigoClientes"])
                         print("Nombre Cliente: \t", cliente["nombreClientes"])
                         print("Cuenta N°: \t\t", cliente["numeroCuentas"])
                         
                         confirmation = input("\n¿DESEA ELIMINAR EL CLIENTE? (si/no): ")
                         if confirmation.lower() == "si":
-                            for cliente in banco:
-                                banco.pop(indice)
-                                cantClientes -= 1
-                                print("\n   --- Se elimino el cliente correctamente ---")
-                        
+                            banco.pop(indice) #con esta función lo eliminamos y restamos a la cantidad total de clientes
+                            cantClientes -= 1
+                            print("\n   --- Se elimino el cliente correctamente ---")
                         elif confirmation.lower() == "no":
                             print("\n   --- No se elimino el cliente ---")
                         
                         else:
                             print("\nHa ingresado una opción incorrecta. Por favor ingresa una opción del submenú.")
-                
-                if not encontrado:
-                    print("\n   --- Cliente No Encontrado! ---")
-                    continue
                 break
         else:
             print("   --- No hay clientes ---")
