@@ -53,16 +53,18 @@ while True:
     print("6. Mostrar lista de clientes con retiros.")
     print("7. Mostrar lista con clientes ordenada por Número de cuenta.")
     print("8. Salir del programa.")
-    respuesta = manejoErrorINT("Ingrese la opción del menú deseada: ")
+    respuesta = manejoErrorINT("\nIngrese la opción del menú deseada: ")
 
     if respuesta == 1:
         cargador()
         print(" --- AGREGAR CLIENTE --- ")
-        while True:
+        while True:            
             print("\nSi desea cancelar y salir presione 0, seguido de Enter")
-            cant = manejoErrorINT("\nIngrese el numero de clientes que desea agregar?: ")
-
-            if cant == 0: # opcion para que salga del bucle si quiere
+            cant = manejoErrorINT("Ingrese el numero de clientes que desea agregar?: ")
+            if cant > 5:
+                print("\n   --- Solo se pueden agregar 5 clientes ---")
+                continue
+            elif cant == 0:
                 break
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
                 #Verifica si el codigo existe
@@ -111,7 +113,7 @@ while True:
     elif respuesta == 2:
         cargador()
         if cantClientes > 0:
-            print(" --- AGREGAR TRANSACCION --- ")
+            print(" --- AGREGAR TRANSACCIÓN --- ")
             #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
             while True:
                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
@@ -123,7 +125,7 @@ while True:
                 for cliente in banco:
                     if cliente["codigoClientes"] == codigo: #Verifica si hay un codigo que concuerde con el cliente
                         encontrado = True
-                        print("\n   --- CLIENTE ENCONTRADO! ---")
+                        print("\n   --- ¡CLIENTE ENCONTRADO! ---")
                         print("\nCodigo cliente: \t", cliente["codigoClientes"])
                         print("Nombre cliente: \t", cliente["nombreClientes"])
                         print("Cuenta del cliente: \t\t", cliente["numeroCuentas"])
@@ -181,6 +183,12 @@ while True:
         if cantClientes > 0:
             print("\n --- MODIFICAR CLIENTE --- ")
         cant = manejoErrorINT("\n¿Cuántos clientes desea modificar? ")
+        if cant > 5:
+            print("\n   --- Solo se pueden modificar 5 clientes ---")
+            continue
+        elif cant == 0:
+            break
+
         for i in range(cant):
             while True:
                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
@@ -194,7 +202,7 @@ while True:
                         break
                 if codigoExiste: #Como el código existe, muestra los datos del cliente con dicho código
                     while True:
-                        print("\nCLIENTE ENCONTRADO!")
+                        print("\n¡CLIENTE ENCONTRADO!")
                         print("Código del cliente: \t", cliente_actual["codigoClientes"])#se imprime los datos del cliente encontrado
                         print("Nombre del cliente: \t", cliente_actual["nombreClientes"])
                         print("Cuenta del cliente: \t", cliente_actual["numeroCuentas"])
