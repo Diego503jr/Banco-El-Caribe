@@ -275,7 +275,6 @@ while True:
                     break
                 else:
                     print("\n    --- Cliente no encontrado! ---")
-                    
             break
         else:
             print("   --- No hay clientes ---")
