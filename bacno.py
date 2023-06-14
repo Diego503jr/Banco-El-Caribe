@@ -3,13 +3,13 @@ import datetime #para poder agregar la fecha y hora
 banco = [
     {
     "codigoClientes": 10001,
-    "nombreClientes": "Diego Hernandez", 
+    "nombreClientes": "Cesar Calderón", 
     "numeroCuentas": 100010,
     "saldo": 50, 
     "retiros": [50],
     "horayfecha_Retiros": ["2022-01-14 7:43:15"], #para agregar la fecha y hora actuales 
     "depositos": [100],
-    "horayfecha_Depositos": ["2022-01-14 7:43:15"] #para agregar la fecha y hora actuales 
+    "horayfecha_Depositos": ["2023-01-14 7:43:15"] #para agregar la fecha y hora actuales 
     }
 ]
 cantClientes = 1
@@ -140,7 +140,7 @@ while True:
                             formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
                             print("\tFecha y hora del depósito realizado:", formato_fecha) #para agregar la fecha y hora actuales 
                             
-                            cliente["saldo"] += valorDeposito #Se le suma el saldo actual del deposito
+                            cliente["saldo"] += valorDeposito
                             cliente["depositos"].append(valorDeposito)
                             cliente["horayfecha_Depositos"].append(formato_fecha)
                             
@@ -158,7 +158,7 @@ while True:
                                         formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #establecer que se mostrara años, meses, dias 
                                         print("\tFecha y hora del retiro realizado:", formato_fecha)
                                         
-                                        cliente["saldo"] -= valorRetiro #Se le resta su saldo actual con el retiro
+                                        cliente["saldo"] -= valorRetiro
                                         cliente["retiros"].append(valorRetiro)
                                         cliente["horayfecha_Retiros"].append(formato_fecha)
                                         
@@ -183,7 +183,7 @@ while True:
         if cantClientes > 0:
             print("\n --- MODIFICAR CLIENTE --- ")
 
-        while True: #se hizo un bucle porque sino se hace mas complejo si encierra este bucle al resto del codigo
+        while True:
             cant = manejoErrorINT("\n¿Cuántos clientes desea modificar? ")
             if cant > 5:
                 print("\n   --- Solo se pueden modificar 5 clientes ---")
@@ -232,7 +232,7 @@ while True:
                                 print("\n   --- No ingrese el codigo anterior del cliente ---")
                                 continue
                             
-                            elif not codigoExiste: #ahora reemplazamos los datos del usuario
+                            if not codigoExiste: #ahora reemplazamos los datos del usuario
                                 cliente_actual["codigoClientes"] = nuevoCodigo
                                 print("\n   --- El cliente ha sido modificado con éxito! ---")
                                 break
@@ -262,18 +262,17 @@ while True:
                                     codigoExiste = False
                                     break
 
+                                if nuevaCuenta == cuentaActual: #si el nuevo numero es igual al anterior, no se hará ningún cambio
+                                    print("\n   --- No ingrese el numero de la cuenta anterior del cliente ---")
+                                    continue
+
                                 cuentaExiste = False
                                 for cliente in banco: #aquí se busca si el nuevo numero ya existe en otro cliente
                                     if cliente["numeroCuentas"] == nuevaCuenta:
                                         cuentaExiste = True
                                         break
 
-                                if nuevaCuenta == cuentaActual: #si el nuevo numero es igual al anterior, no se hará ningún cambio
-                                    print("\n   --- No ingrese el numero de la cuenta anterior del cliente ---")
-                                    continue
-
-
-                                elif not cuentaExiste: #una vez validado se asigna el nuevo numero de cuenta
+                                if not cuentaExiste: #una vez validado se asigna el nuevo numero de cuenta
                                     cliente_actual["numeroCuentas"] = nuevaCuenta
                                     print("\n   --- El cliente ha sido modificado con éxito! ---")
                                     break
@@ -289,6 +288,7 @@ while True:
                     break
                 else:
                     print("\n    --- Cliente no encontrado! ---")
+                    
             break
         else:
             print("   --- No hay clientes ---")
@@ -314,6 +314,7 @@ while True:
                             print("\n   --- Se elimino el cliente correctamente ---")
                         elif confirmation.lower() == "no":
                             print("\n   --- No se elimino el cliente ---")
+                        
                         else:
                             print("\nHa ingresado una opción incorrecta. Por favor ingresa una opción del submenú.")
                 break
@@ -331,7 +332,7 @@ while True:
                     print("\t\tNombre:", cliente["nombreClientes"])
                     print("\t\tSaldo: $ ", cliente["saldo"])
                     for i in range(len(cliente["depositos"])): #para que se muestren los depositos sin el formato de lista 
-                        print("\n\t\tDepósito", i + 1, ": $", cliente["depositos"][i])
+                        print("\t\tDepósito", i + 1, ": $", cliente["depositos"][i])
                         print("\t\tFecha y hora del depósito realizado:", cliente["horayfecha_Depositos"][i])
         else:
             print("   --- No hay clientes ---")
@@ -347,7 +348,7 @@ while True:
                     print("\t\tNombre:", cliente["nombreClientes"])
                     print("\t\tSaldo: $", cliente["saldo"])
                     for i in range(len(cliente["retiros"])): #para que se muestren los depositos sin el formato de lista 
-                        print("\n\t\tRetiros", i + 1, ": $", cliente["retiros"][i])
+                        print("\t\tRetiros", i + 1, ": $", cliente["retiros"][i])
                         print("\t\tFecha y hora del retiro realizado:", cliente["horayfecha_Retiros"][i])
         else:
             print("   --- No hay clientes ---")
@@ -357,15 +358,15 @@ while True:
         if cantClientes > 0:
             print("                                 --- LISTA DE CLIENTES ORDENADA SEGÚN NÚMERO DE CUENTA ---")
             print("\n-----------------------------------------------------------------------------------------------------------------------------")
-            print("{:<10s} {:<15s} {:<15s} {:<20s} {:<15s} {:<20s} {:<11s}".format(
-                "N°", "Cuenta", "Código", "Nombre", "Saldo", "Depósitos", "Retiros"))
+            print("{:<10s} {:<15s} {:<15s} {:<15s} {:<15s} {:<20s} {:<11s}".format(
+                "Cliente N°", "Cuenta", "Código", "Nombre", "Saldo", "Depósitos", "Retiros"))
             print("-----------------------------------------------------------------------------------------------------------------------------")
             banco_ordenado = sorted(banco, key=lambda cliente: int(cliente["numeroCuentas"]))
             for i, cliente in enumerate(banco_ordenado, start=1):
                 saldo = cliente["saldo"]
                 depositos = sum(cliente["depositos"])
                 retiros = sum(cliente["retiros"])
-                print("{:<10d} {:<15s} {:<15s} {:<20s} ${:<14,.2f} ${:<20,.2f} ${:<10,.2f}".format(
+                print("{:<10d} {:<15s} {:<15s} {:<15s} ${:<14,.2f} ${:<20,.2f} ${:<10,.2f}".format(
                     i,
                     str(cliente["numeroCuentas"]),
                     str(cliente["codigoClientes"]),
