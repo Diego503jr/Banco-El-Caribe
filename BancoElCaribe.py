@@ -3,7 +3,7 @@ import datetime #para poder agregar la fecha y hora
 banco = [
     {
     "codigoClientes": 10001,
-    "nombreClientes": "Cesar Pilajuan", 
+    "nombreClientes": "Cesar Calderón", 
     "numeroCuentas": 100010,
     "saldo": 50, 
     "retiros": [50],
@@ -59,7 +59,11 @@ while True:
         cargador()
         print(" --- AGREGAR CLIENTE --- ")
         while True:
-            cant = manejoErrorINT("\n¿Cuántos clientes desea agregar?: ")
+            print("\nSi desea cancelar y salir presione 0, seguido de Enter")
+            cant = manejoErrorINT("\nIngrese el numero de clientes que desea agregar?: ")
+
+            if cant == 0: # opcion para que salga del bucle si quiere
+                break
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
                 #Verifica si el codigo existe
                 codigoExiste = False
@@ -72,7 +76,7 @@ while True:
                     nombreClientes = manejoErrorSTR("\tDigite el nombre del cliente: ")
                     numeroCuenta = manejoErrorINT("\tDigite el numero de cuenta: ")
                     
-                    for cliente in banco:
+                    for cliente in banco: #Busca si hay cuenta y codigo en vigencia 
                         if cliente["codigoClientes"] == codigoClientes:
                             codigoExiste = True
                             break
@@ -80,7 +84,7 @@ while True:
                             cuentaExiste = True
                             break 
 
-                    if not codigoExiste and not cuentaExiste:
+                    if not codigoExiste and not cuentaExiste: #si codigo y cuenta no existen se realiza la operacion
                         break
                     if cuentaExiste:
                         print("\n    --- La cuenta ya la posee otro cliente ---")
@@ -102,12 +106,7 @@ while True:
                 }
                 banco.append(cliente) #Se agrega en cada reccorido el diccionario a la lista banco
                 cantClientes += 1 #Este contador aparece en el sistema, sirve para recorrer los diccionarios y servira para obtener los promedios creo
-            
-            continuar = manejoErrorSTR("\n¿Desea continuar? \n(si/no): ") #Manda al menu principal si agrega si
-            if continuar.lower() == "si":
                 continue
-            else:
-                break
 
     elif respuesta == 2:
         cargador()
@@ -115,9 +114,10 @@ while True:
             print(" --- AGREGAR TRANSACCION --- ")
             #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
             while True:
-                codigo = manejoErrorINT("\nDigite el código de cliente o '0' para salir: ")
+                print("\nSi desea cancelar y salir presione 0, seguido de Enter")
+                codigo = manejoErrorINT("Ingrese el código del cliente a modificar: ")
                 encontrado = False
-                if codigo == 0:
+                if codigo == 0: # opcion para que salga del bucle si quiere
                     break
                 
                 for cliente in banco:
@@ -129,12 +129,12 @@ while True:
                         print("Cuenta del cliente: \t\t", cliente["numeroCuentas"])
                         print("Saldo: $ \t\t", cliente["saldo"])
 
-                        tipoTransaccionAgregar = manejoErrorINT("\nTipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
+                        tipoTransaccionAgregar = manejoErrorINT("\nIngrese el tipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
                         if tipoTransaccionAgregar == 1 :
                             print("\n - DEPOSITO - ")
                             
                             valorDeposito = manejoErrorINT("\n\tIngrese la cifra a depositar: $ ")
-                            horayfecha = datetime.datetime.now() 
+                            horayfecha = datetime.datetime.now() #especifica la hora de la operacion realizada
                             formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
                             print("\tFecha y hora del depósito realizado:", formato_fecha) #para agregar la fecha y hora actuales 
                             
@@ -153,7 +153,7 @@ while True:
                                     if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo es aun menor lanza una alerta
                                         
                                         horayfecha = datetime.datetime.now() 
-                                        formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #para agregar la fecha y hora actuales 
+                                        formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #establecer que se mostrara años, meses, dias 
                                         print("\tFecha y hora del retiro realizado:", formato_fecha)
                                         
                                         cliente["saldo"] -= valorRetiro
