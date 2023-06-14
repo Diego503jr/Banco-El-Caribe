@@ -7,12 +7,12 @@ banco = [
     "numeroCuentas": 100010,
     "saldo": 50, 
     "retiros": [50],
-    "horayfecha_Retiros": ["2022-01-14 7:43:15"], #para agregar la fecha y hora actuales 
+    "horayfecha_Retiros": ["2022-01-14 7:43:15"],
     "depositos": [100],
-    "horayfecha_Depositos": ["2022-01-14 7:43:15"] #para agregar la fecha y hora actuales 
+    "horayfecha_Depositos": ["2022-01-14 7:43:15"]
     }
 ]
-cantClientes = 1
+cantClientes = 1 # variable contador que se ocupa para saber la cantidad de clientes
 
 def cargador(): #Esta funcion es un cargador
     print("\nCargando", end= " ")
@@ -60,19 +60,20 @@ while True:
         print(" --- AGREGAR CLIENTE --- ")
         while True:            
             print("\nSi desea cancelar y salir presione 0, seguido de Enter")
+
             cant = manejoErrorINT("Ingrese el numero de clientes que desea agregar?: ")
+            #se valida que no ingrese mas de 5 clientes y si presiona '0' lo regresa al menu
             if cant > 5:
                 print("\n   --- Solo se pueden agregar 5 clientes ---")
                 continue
             elif cant == 0:
                 break
+
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
-                #Verifica si el codigo existe
                 codigoExiste = False
                 cuentaExiste = False
                 #Este while hace que si no se cumple algo sigue solicitando hasta que sea verdadero todo sale
                 while True:
-
                     print("\n\tCliente N°", cantClientes+1)
                     codigoClientes = manejoErrorINT("\tDigite el código del cliente: ")
                     nombreClientes = manejoErrorSTR("\tDigite el nombre del cliente: ")
@@ -88,6 +89,7 @@ while True:
 
                     if not codigoExiste and not cuentaExiste: #si codigo y cuenta no existen se realiza la operacion
                         break
+
                     if cuentaExiste:
                         print("\n    --- La cuenta ya la posee otro cliente ---")
                         cuentaExiste = False
@@ -95,7 +97,7 @@ while True:
                         print("\n   --- El codigo ya lo posee otro cliente ---")
                         codigoExiste = False        
 
-                #Las variables anteriores se agregaran al diccionario y los retiros y depositos iniciara como lista
+                #Las variables anteriores se agregaran al diccionario y los retiros y depositos iniciara como lista y saldo inicial 0
                 cliente = {
                     "codigoClientes": codigoClientes,
                     "nombreClientes": nombreClientes,
@@ -107,17 +109,18 @@ while True:
                     "horayfecha_Depositos":[]
                 }
                 banco.append(cliente) #Se agrega en cada reccorido el diccionario a la lista banco
-                cantClientes += 1 #Este contador aparece en el sistema, sirve para recorrer los diccionarios y servira para obtener los promedios creo
+                cantClientes += 1 #se agrega a la variable más clientes
                 continue
 
     elif respuesta == 2:
         cargador()
+        #Verifica si hay clientes con la variable contador cantClientes sino lo regresa al menu en todos los puntos menos el 1 y 8
         if cantClientes > 0:
             print(" --- AGREGAR TRANSACCIÓN --- ")
-            #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
             while True:
                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
-                codigo = manejoErrorINT("Ingrese el código del cliente a modificar: ")
+
+                codigo = manejoErrorINT("Ingrese el código del cliente: ")
                 encontrado = False
                 if codigo == 0: # opcion para que salga del bucle si quiere
                     break
@@ -130,17 +133,19 @@ while True:
                         print("Nombre cliente: \t", cliente["nombreClientes"])
                         print("Cuenta del cliente: \t\t", cliente["numeroCuentas"])
                         print("Saldo: $ \t\t", cliente["saldo"])
-
+                        #Se le pide al usuario que ingrese que tipo de transaccion hara
                         tipoTransaccionAgregar = manejoErrorINT("\nIngrese el tipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
+                        
                         if tipoTransaccionAgregar == 1 :
                             print("\n - DEPOSITO - ")
                             
                             valorDeposito = manejoErrorINT("\n\tIngrese la cifra a depositar: $ ")
                             horayfecha = datetime.datetime.now() #especifica la hora de la operacion realizada
-                            formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
-                            print("\tFecha y hora del depósito realizado:", formato_fecha) #para agregar la fecha y hora actuales 
-                            
-                            cliente["saldo"] += valorDeposito #Se le suma el saldo actual del deposito
+                            formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #Se estructura como años, meses, dias, horas, minutos y segundos
+                            print("\tFecha y hora del depósito realizado:", formato_fecha) 
+                            cliente["saldo"] += valorDeposito #Se le suma al saldo actual
+
+                            #Se agregan al diccionario el valor y fecha de la operacion
                             cliente["depositos"].append(valorDeposito)
                             cliente["horayfecha_Depositos"].append(formato_fecha)
                             
@@ -149,16 +154,18 @@ while True:
                         
                         elif tipoTransaccionAgregar == 2:
                             print("\n - RETIRO -")
+
                             if cliente["saldo"] > 0: #Se comprueba si el saldo esta a 0 y asi no realizara el retiro
                                 while True:
                                     valorRetiro = manejoErrorINT("\tIngrese la cifra a depositar: $ ") 
-                                    if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo es aun menor lanza una alerta
+                                    if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo excede el saldo actual
                                         
-                                        horayfecha = datetime.datetime.now() 
-                                        formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #establecer que se mostrara años, meses, dias 
+                                        horayfecha = datetime.datetime.now()
+                                        formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
                                         print("\tFecha y hora del retiro realizado:", formato_fecha)
+                                        cliente["saldo"] -= valorRetiro #Se le resta el saldo actual
                                         
-                                        cliente["saldo"] -= valorRetiro #Se le resta su saldo actual con el retiro
+                                        #Se agregan al diccionario el valor y fecha de la operacion
                                         cliente["retiros"].append(valorRetiro)
                                         cliente["horayfecha_Retiros"].append(formato_fecha)
                                         
@@ -198,9 +205,9 @@ while True:
                     codigoExiste = False  #Para verificar si el código existe
                     if codigo == 0:
                         break
-                    for cliente_actual in banco:
+                    for cliente_actual in banco: #Comprueba si el codigo existe
                         if cliente_actual["codigoClientes"] == codigo:
-                            codigoExiste = True  #El código existe en algún cliente
+                            codigoExiste = True  
                             break
                     if codigoExiste: #Como el código existe, muestra los datos del cliente con dicho código
                         while True:
@@ -245,6 +252,7 @@ while True:
                             elif seleccion == 2: #si quiere cambiar el nombre
                                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
                                 nuevoNombre = manejoErrorSTR("\tIngrese el nuevo nombre del Cliente: ")#se le solicita el nuevo nombre 
+                                
                                 if nuevoNombre == 0: #por si quiere salir antes de el proceso
                                     codigoExiste = False
                                     break
@@ -258,6 +266,7 @@ while True:
                                 while True:
                                     print("\nSi desea cancelar y salir presione 0, seguido de Enter")
                                     nuevaCuenta = manejoErrorINT("Ingrese el nuevo número de cuenta: ")#será el nuevo numero de cuenta
+                                    
                                     if nuevaCuenta == 0: #por si quiere salir antes de el proceso
                                         codigoExiste = False
                                         break
@@ -295,7 +304,6 @@ while True:
 
     elif respuesta == 4:
         cargador()
-        #Verifica si hay clientes sino hay muestra un mensaje que no hay y lo saca porque sino hay que mas tiene que hacer aqui xd
         if cantClientes > 0:
             print(" --- ELIMINAR CLIENTE --- ")
             while True:
@@ -392,5 +400,6 @@ while True:
                 *******************************************************""")
         break
     else:
+        #Si ingresa una opcion que no hay en el menu le sigue solicitando
         print("\n Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
         continue
