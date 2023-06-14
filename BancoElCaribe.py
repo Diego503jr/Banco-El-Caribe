@@ -60,9 +60,9 @@ while True:
         print(" --- AGREGAR CLIENTE --- ")
         while True:
             cant = manejoErrorINT("\n¿Cuántos clientes desea agregar?: ")
-            if cantClientes + cant > 5:
+            if cant > 5:
                 print("\nSolo se pueden agregar 5 clientes.")
-                break
+                continue
             for i in range(cant): #aqui recorre la cantidad de clientes que agregará
                 #Verifica si el codigo existe
                 codigoExiste = False
