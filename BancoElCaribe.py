@@ -1,17 +1,6 @@
 import time
 import datetime #para poder agregar la fecha y hora 
-banco = [
-    {
-    "codigoClientes": 10001,
-    "nombreClientes": "Diego Hernandez", 
-    "numeroCuentas": 100010,
-    "saldo": 50, 
-    "retiros": [50],
-    "horayfecha_Retiros": ["2022-01-14 7:43:15"],
-    "depositos": [100],
-    "horayfecha_Depositos": ["2022-01-14 7:43:15"]
-    }
-]
+banco = []
 cantClientes = 1 # variable contador que se ocupa para saber la cantidad de clientes
 
 def cargador(): #Esta funcion es un cargador
@@ -379,6 +368,7 @@ while True:
             #Usamos ´banco´ que contiene los datos del cliente y se crea una nueva variable ´banco_ordenado´.
             #Ahora se procede a usar el bucle ´for´ donde irá el número de cuenta, el código, el nombre, su saldo, el depósito y el retiro.
             #Caso contrario de que no existan clientes que mostrar, con ´else´ mostraremos que no hay clientes y volverá al menú. 
+            #'lambda'se utiliza para especificar una función de clave personalizada para clasificar y agrupar datos
             banco_ordenado = sorted(banco, key=lambda cliente: int(cliente["numeroCuentas"]))
             for i, cliente in enumerate(banco_ordenado, start=1):
                 saldo = cliente["saldo"]
