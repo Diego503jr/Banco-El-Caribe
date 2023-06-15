@@ -364,12 +364,21 @@ while True:
 
     elif respuesta == 7:
         cargador()
-        if cantClientes > 0:
+        if cantClientes > 0: 
+        #Con el formato La parte {:<10s} se refiere a un marcador de posición que se llenará con una cadena de texto ´s´ y
+        #se ajustará a la izquierda (<), con un ancho de de 10 caracteres. 
+        #Significa que se espera que el dato proporcionado tenga una una longitud máxima de 10 caracteres. 
+        #De igual forma para los otros formatos presentados en esta parte del código. 
             print("                                 --- LISTA DE CLIENTES ORDENADA SEGÚN NÚMERO DE CUENTA ---")
             print("\n-----------------------------------------------------------------------------------------------------------------------------")
             print("{:<10s} {:<15s} {:<15s} {:<20s} {:<15s} {:<20s} {:<11s}".format(
                 "N°", "Cuenta", "Código", "Nombre", "Saldo", "Depósitos", "Retiros"))
             print("-----------------------------------------------------------------------------------------------------------------------------")
+            #Ahora se procede a ordenar según número de cuenta para que nuestra lista sea de menor a mayor número de cuenta por cliente.
+            #Usando ´sorted´ (es una función que ordena de menor a mayor en Python), no es útil para ordenar las cuentas de menor a mayor.
+            #Usamos ´banco´ que contiene los datos del cliente y se crea una nueva variable ´banco_ordenado´.
+            #Ahora se procede a usar el bucle ´for´ donde irá el número de cuenta, el código, el nombre, su saldo, el depósito y el retiro.
+            #Caso contrario de que no existan clientes que mostrar, con ´else´ mostraremos que no hay clientes y volverá al menú. 
             banco_ordenado = sorted(banco, key=lambda cliente: int(cliente["numeroCuentas"]))
             for i, cliente in enumerate(banco_ordenado, start=1):
                 saldo = cliente["saldo"]
@@ -389,6 +398,8 @@ while True:
             print("   --- NO HAY CLIENTES QUE MOSTRAR ---")
     
     elif respuesta == 8:
+        #La opción 8 es simplemente la opción de salir del programa. 
+        #Al digitar el número 8 del menú automaticamente el programa mostrará dos mensajes y finalizará.
         cargador()
         print("""
                 ***********************************************
@@ -400,6 +411,6 @@ while True:
                 *******************************************************""")
         break
     else:
-        #Si ingresa una opcion que no hay en el menu le sigue solicitando
+        #Caso contrario, se mostrará un mensaje en pantalla pidiendo al usuario que ha digitado una opción incorrecta. 
         print("\n HA INGRESADO UNA OPCIÓN INCORRECTA, POR FAVOR INGRESA LAS OPCIONES DEL MENÚ.")
         continue
