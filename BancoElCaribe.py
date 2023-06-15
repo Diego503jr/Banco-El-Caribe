@@ -411,6 +411,6 @@ while True:
                 *******************************************************""")
         break
     else:
-        #Caso contrario, se mostrará un mensaje en pantalla pidiendo al usuario que ha digitado una opción incorrecta. 
+        #Caso contrario, se mostrará un mensaje en pantalla mostrando al usuario que ha digitado una opción incorrecta. 
         print("\n HA INGRESADO UNA OPCIÓN INCORRECTA, POR FAVOR INGRESA LAS OPCIONES DEL MENÚ.")
         continue
