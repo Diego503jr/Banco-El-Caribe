@@ -1,6 +1,10 @@
 import time
 import datetime #para poder agregar la fecha y hora 
 banco = []
+saldoRetiro = 0
+saldoDeposito = 0
+cantRetiro = 0
+cantDeposito = 0
 cantClientes = 0 # variable contador que se ocupa para saber la cantidad de clientes
 
 def cargador(): #Esta funcion es un cargador
@@ -92,8 +96,14 @@ while True:
                     "nombreClientes": nombreClientes,
                     "numeroCuentas":   numeroCuenta,
                     "saldo":0,
+                    "totalRetiro": 0,
+                    "contadorRetiro": 0,
+                    "promedioRetiro": 0,
                     "retiros":[],
+                    "totalDeposito": 0,
                     "horayfecha_Retiros":[],
+                    "contadorDeposito": 0,
+                    "promedioDeposito": 0,
                     "depositos":[],
                     "horayfecha_Depositos":[]
                 }
@@ -132,6 +142,10 @@ while True:
                             formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S") #Se estructura como años, meses, dias, horas, minutos y segundos
                             print("\tFecha y hora del depósito realizado:", formato_fecha) 
                             cliente["saldo"] += valorDeposito #Se le suma al saldo actual
+                            cliente["totalDeposito"] += valorDeposito
+                            cliente["contadorDeposito"] += 1
+
+                            cliente["promedioDeposito"] = cliente["totalDeposito"] / cliente["contadorDeposito"]
 
                             #Se agregan al diccionario el valor y fecha de la operacion
                             cliente["depositos"].append(valorDeposito)
@@ -144,13 +158,16 @@ while True:
 
                             if cliente["saldo"] > 0: #Se comprueba si el saldo esta a 0 y asi no realizara el retiro
                                 while True:
-                                    valorRetiro = manejoErrorINT("\tIngrese la cifra a depositar: $ ") 
+                                    valorRetiro = manejoErrorINT("\tIngrese la cifra a retirar: $ ") 
                                     if valorRetiro - cliente["saldo"] <= 0: #Comprueba si el valor del retiro menos el saldo excede el saldo actual
                                         
                                         horayfecha = datetime.datetime.now()
                                         formato_fecha= horayfecha.strftime("%Y-%m-%d %H:%M:%S")
                                         print("\tFecha y hora del retiro realizado:", formato_fecha)
                                         cliente["saldo"] -= valorRetiro #Se le resta el saldo actual
+                                        cliente["totalRetiro"] += valorRetiro
+                                        cliente["contadorRetiro"] += 1
+                                        cliente["promedioRetiro"] = cliente["totalRetiro"] / cliente["contadorRetiro"]
                                         
                                         #Se agregan al diccionario el valor y fecha de la operacion
                                         cliente["retiros"].append(valorRetiro)
@@ -167,7 +184,7 @@ while True:
                             break
                         else:
                             print("\nPor favor ingresa una de las opciones dadas!")
-                        continue
+                            continue
                 if not clienteEncontrado:
                     print("\n   --- Cliente No Encontrado! ---")
                     continue
@@ -342,6 +359,9 @@ while True:
                     for i in range(len(cliente["depositos"])): #para que se muestren los depositos sin el formato de lista 
                         print("\n\t\tDepósito", i + 1, ": $", cliente["depositos"][i])
                         print("\t\tFecha y hora del depósito realizado:", cliente["horayfecha_Depositos"][i])
+                    print(cliente["contadorDeposito"])
+                    print(cliente["totalDeposito"]) #esto vas a mostrar o eso creo xd
+                    print(cliente["promedioDeposito"]) #esto vas a mostrar o eso creo xd
         else:
             print("   --- No hay clientes ---")
 
@@ -358,6 +378,9 @@ while True:
                     for i in range(len(cliente["retiros"])): #para que se muestren los depositos sin el formato de lista 
                         print("\n\t\tRetiros", i + 1, ": $", cliente["retiros"][i])
                         print("\t\tFecha y hora del retiro realizado:", cliente["horayfecha_Retiros"][i])
+                    print(cliente["contadorRetiro"])
+                    print(cliente["totalRetiro"]) #esto vas a mostrar o eso creo xd
+                    print(cliente["promedioRetiro"]) #esto vas a mostrar o eso creo xd
         else:
             print("   --- No hay clientes ---")
 
@@ -395,7 +418,7 @@ while True:
                 ))
                 print("-----------------------------------------------------------------------------------------------------------------------------")
         else:
-            print("   --- NO HAY CLIENTES QUE MOSTRAR ---")
+            print("   --- No hay clientes ---")
     
     elif respuesta == 8:
         #La opción 8 es simplemente la opción de salir del programa. 
