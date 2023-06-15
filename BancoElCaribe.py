@@ -365,8 +365,8 @@ while True:
     elif respuesta == 7:
         cargador()
         if cantClientes > 0: 
-        #Con el formato La parte {:<10s} se refiere a un marcador de posición que se llenará con una cadena de texto ´s´ y
-        #se ajustará a la izquierda (<), con un ancho de de 10 caracteres. 
+        #Con el formato {:<10s} se refiere a un marcador de posición que se llenará con una cadena de texto ´s´ y
+        #se ajustará a la izquierda (<), con un ancho de 10 caracteres. 
         #Significa que se espera que el dato proporcionado tenga una una longitud máxima de 10 caracteres. 
         #De igual forma para los otros formatos presentados en esta parte del código. 
             print("                                 --- LISTA DE CLIENTES ORDENADA SEGÚN NÚMERO DE CUENTA ---")
