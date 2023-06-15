@@ -386,7 +386,7 @@ while True:
                 ))
                 print("-----------------------------------------------------------------------------------------------------------------------------")
         else:
-            print("   --- No hay clientes ---")
+            print("   --- NO HAY CLIENTES QUE MOSTRAR ---")
     
     elif respuesta == 8:
         cargador()
