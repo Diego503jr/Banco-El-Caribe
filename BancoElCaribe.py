@@ -1,7 +1,7 @@
 import time
 import datetime #para poder agregar la fecha y hora 
 banco = []
-cantClientes = 1 # variable contador que se ocupa para saber la cantidad de clientes
+cantClientes = 0 # variable contador que se ocupa para saber la cantidad de clientes
 
 def cargador(): #Esta funcion es un cargador
     print("\nCargando", end= " ")
@@ -82,7 +82,7 @@ while True:
                     if cuentaExiste:
                         print("\n    --- La cuenta ya la posee otro cliente ---")
                         cuentaExiste = False
-                    if codigoExiste:
+                    elif codigoExiste:
                         print("\n   --- El codigo ya lo posee otro cliente ---")
                         codigoExiste = False        
 
@@ -105,27 +105,26 @@ while True:
         cargador()
         #Verifica si hay clientes con la variable contador cantClientes sino lo regresa al menu en todos los puntos menos el 1 y 8
         if cantClientes > 0:
-            print(" --- AGREGAR TRANSACCIÓN --- ")
+            print(" --- ELIMINAR CLIENTE --- ")
             while True:
                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
-
                 codigo = manejoErrorINT("Ingrese el código del cliente: ")
-                encontrado = False
-                if codigo == 0: # opcion para que salga del bucle si quiere
+                if codigo == 0:  # Opción para salir del bucle
                     break
-                
+
+                clienteEncontrado = False  # Variable para rastrear si se encontró el cliente
                 for cliente in banco:
-                    if cliente["codigoClientes"] == codigo: #Verifica si hay un codigo que concuerde con el cliente
-                        encontrado = True
+                    if cliente["codigoClientes"] == codigo:
+                        clienteEncontrado = True
                         print("\n   --- ¡CLIENTE ENCONTRADO! ---")
                         print("\nCodigo cliente: \t", cliente["codigoClientes"])
                         print("Nombre cliente: \t", cliente["nombreClientes"])
-                        print("Cuenta del cliente: \t\t", cliente["numeroCuentas"])
+                        print("Cuenta del cliente: \t", cliente["numeroCuentas"])
                         print("Saldo: $ \t\t", cliente["saldo"])
-                        #Se le pide al usuario que ingrese que tipo de transaccion hara
-                        tipoTransaccionAgregar = manejoErrorINT("\nIngrese el tipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\nIngrese la opción deseada: ")
-                        
-                        if tipoTransaccionAgregar == 1 :
+
+                        tipoTransaccionAgregar = manejoErrorINT("\nIngrese el tipo de transacción que desea realizar:\n1- Deposito\n2- Retiro\n3- Salir\n Ingrese la opción deseada: ")
+
+                        if tipoTransaccionAgregar == 1:
                             print("\n - DEPOSITO - ")
                             
                             valorDeposito = manejoErrorINT("\n\tIngrese la cifra a depositar: $ ")
@@ -140,7 +139,6 @@ while True:
                             
                             print("\n   --- ¡Su Deposito fue satisfactoriamente hecho! ---")
                             break
-                        
                         elif tipoTransaccionAgregar == 2:
                             print("\n - RETIRO -")
 
@@ -165,9 +163,12 @@ while True:
                                         continue
                             else:
                                 print("\n   --- No posee saldo este cliente ---")
+                        elif tipoTransaccionAgregar == 3:
+                            break
                         else:
                             print("\nPor favor ingresa una de las opciones dadas!")
-                if not encontrado:
+                        continue
+                if not clienteEncontrado:
                     print("\n   --- Cliente No Encontrado! ---")
                     continue
                 break
@@ -251,7 +252,7 @@ while True:
                                 break
 
                             elif seleccion == 3:#Si quiere cambiar el numero de cuenta
-                                cuentaActual = manejoErrorINT("Ingrese el número de cuenta actual: ")#lo utilizaremos para validar el numero
+                                cuentaActual = cliente_actual["numeroCuentas"]#lo utilizaremos para validar el numero
                                 while True:
                                     print("\nSi desea cancelar y salir presione 0, seguido de Enter")
                                     nuevaCuenta = manejoErrorINT("Ingrese el nuevo número de cuenta: ")#será el nuevo numero de cuenta
@@ -297,25 +298,34 @@ while True:
             print(" --- ELIMINAR CLIENTE --- ")
             while True:
                 codigo = manejoErrorINT("\nDigite el código de cliente: ")
-                for indice, cliente in enumerate(banco): #le indicamos que numere y que nos dé en la variable indice, la posición del cliente
+                codigoExiste = False
+                clienteEncontrado = False  # Variable para rastrear si se encontró el cliente
+                for indice, cliente in enumerate(banco):
+                    codigoExiste = True
                     if cliente["codigoClientes"] == codigo:
-                        print("\n   --- CLIENTE ENCONTRADO! ---") #mostramos los datos del cliente 
+                        clienteEncontrado = True  # Se encontró el cliente
+                        print("\n   --- CLIENTE ENCONTRADO! ---")
                         print("\nCodigo Cliente: \t", cliente["codigoClientes"])
                         print("Nombre Cliente: \t", cliente["nombreClientes"])
                         print("Cuenta N°: \t\t", cliente["numeroCuentas"])
-                        
+
                         confirmation = input("\n¿DESEA ELIMINAR EL CLIENTE? (si/no): ")
                         if confirmation.lower() == "si":
-                            banco.pop(indice) #con esta función lo eliminamos y restamos a la cantidad total de clientes
+                            banco.pop(indice)
                             cantClientes -= 1
-                            print("\n   --- Se elimino el cliente correctamente ---")
+                            print("\n   --- Se eliminó el cliente correctamente ---")
                         elif confirmation.lower() == "no":
-                            print("\n   --- No se elimino el cliente ---")
+                            print("\n   --- No se eliminó el cliente ---")
                         else:
                             print("\nHa ingresado una opción incorrecta. Por favor ingresa una opción del submenú.")
-                    else: 
-                        print("\n   --- Cliente no encontrado ---")
-                break
+                        break  # Salir del bucle for
+                if not codigoExiste:
+                    print("\n   --- Cliente no encontrado ---")
+                    continue  
+                elif not clienteEncontrado:
+                    print("\n   --- Cliente no encontrado ---")
+                    continue
+                break  
         else:
             print("   --- No hay clientes ---")
             
