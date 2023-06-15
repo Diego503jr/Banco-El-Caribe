@@ -401,5 +401,5 @@ while True:
         break
     else:
         #Si ingresa una opcion que no hay en el menu le sigue solicitando
-        print("\n Ha ingresado una opción incorrecta, por favor ingresa las opciones del menú.")
+        print("\n HA INGRESADO UNA OPCIÓN INCORRECTA, POR FAVOR INGRESA LAS OPCIONES DEL MENÚ.")
         continue
