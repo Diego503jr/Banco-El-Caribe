@@ -115,7 +115,7 @@ while True:
         cargador()
         #Verifica si hay clientes con la variable contador cantClientes sino lo regresa al menu en todos los puntos menos el 1 y 8
         if cantClientes > 0:
-            print(" --- ELIMINAR CLIENTE --- ")
+            print(" --- AGREGAR TRANSACCIONES --- ")
             while True:
                 print("\nSi desea cancelar y salir presione 0, seguido de Enter")
                 codigo = manejoErrorINT("Ingrese el código del cliente: ")
